@@ -3,17 +3,16 @@ import java.util.Arrays;
 public class ArrayStorage {
 
     private final Resume[] storage = new Resume[10000];
-    private int size;
+    private int resumeCount;
 
     public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
+        Arrays.fill(storage, 0, resumeCount, null);
+        resumeCount = 0;
     }
 
     public void save(Resume r) {
         if (r != null) {
-            storage[size] = r;
-            size++;
+            storage[resumeCount++] = r;
         }
     }
 
@@ -21,7 +20,7 @@ public class ArrayStorage {
         if (uuid == null) {
             return null;
         }
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < resumeCount; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
@@ -30,21 +29,20 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < resumeCount; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, size - i - 1);
-                storage[size] = null;
-                size--;
-                return;
+                System.arraycopy(storage, i + 1, storage, i, resumeCount - i - 1);
+                storage[--resumeCount] = null;
+                return ;
             }
         }
     }
 
     public Resume[] getAll() {
-        return Arrays.copyOf(storage,size);
+        return Arrays.copyOf(storage, resumeCount);
     }
 
     public int size() {
-        return size;
+        return resumeCount;
     }
 }
