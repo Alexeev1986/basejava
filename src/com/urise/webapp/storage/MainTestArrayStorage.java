@@ -35,8 +35,8 @@ public class MainTestArrayStorage {
         Resume r4 = new Resume();
         r4.uuid = "uuid4";
         try {
-            ARRAY_STORAGE.update(r2.uuid);
-            ARRAY_STORAGE.update(r4.uuid);
+            ARRAY_STORAGE.update(r2);
+            ARRAY_STORAGE.update(r4);
         } catch (NotExistResumeException | AnExistingResumeException| IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

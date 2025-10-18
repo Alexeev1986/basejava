@@ -5,7 +5,6 @@ import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class ArrayStorage {
 
@@ -17,24 +16,12 @@ public class ArrayStorage {
         size = 0;
     }
 
-    public void update(String uuid) {
-        if (indexPresentResume(uuid) < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + uuid +
+    public void update(Resume r) {
+        if (indexPresentResume(r.uuid) < 0) {
+            throw new NotExistResumeException("Ошибка: резюме (" + r.uuid +
                     ") не существует, обновление не возможно.");
         }
-        System.out.println("Введите обновляемый параметр");
-        Scanner console = new Scanner(System.in);
-        String newResume = console.nextLine().trim();
-        if (newResume.isBlank()) {
-            throw new IllegalArgumentException("Ошибка: обновляемы параметр не может быть пустым.");
-        }
-        int index = indexPresentResume(newResume);
-        if (index >= 0 && size != 0) {
-            throw new AnExistingResumeException("Ошибка: резюме с таким именем уже(" + newResume +
-                    ") уже существует, обновление  не возможно.");
-        }
-        storage[index].uuid = newResume;
-        System.out.println("Резюме (" + uuid + ") -> (" + newResume + ") успешно обновлено.");
+        System.out.println("Резюме (" + r.uuid + ") успешно обновлено.");
     }
 
     public void save(Resume r) {

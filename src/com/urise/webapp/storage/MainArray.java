@@ -56,9 +56,11 @@ public class MainArray {
                     printAll();
                     break;
                 case "update":
+                    r = new Resume();
+                    r.uuid = uuid;
                     try {
-                        ARRAY_STORAGE.update(uuid);
-                    } catch (NotExistResumeException | IllegalArgumentException | AnExistingResumeException e) {
+                        ARRAY_STORAGE.update(r);
+                    } catch (NotExistResumeException e) {
                         System.out.println(e.getMessage());
                     }
                     printAll();
