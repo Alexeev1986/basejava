@@ -28,11 +28,12 @@ public class ArrayStorage {
         if (newResume.isBlank()) {
             throw new IllegalArgumentException("Ошибка: обновляемы параметр не может быть пустым.");
         }
-        if (indexPresentResume(newResume) >= 0 && size != 0) {
+        int index = indexPresentResume(newResume);
+        if (index >= 0 && size != 0) {
             throw new AnExistingResumeException("Ошибка: резюме с таким именем уже(" + newResume +
                     ") уже существует, обновление  не возможно.");
         }
-        storage[indexPresentResume(uuid)].uuid = newResume;
+        storage[index].uuid = newResume;
         System.out.println("Резюме (" + uuid + ") -> (" + newResume + ") успешно обновлено.");
     }
 
@@ -48,10 +49,11 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (indexPresentResume(uuid) < 0) {
+        int index = indexPresentResume(uuid);
+        if (index < 0) {
             throw new NotExistResumeException("Ошибка: резюме (" + uuid + ") не существует");
         }
-        return storage[indexPresentResume(uuid)];
+        return storage[index];
     }
 
     public void delete(String uuid) {
