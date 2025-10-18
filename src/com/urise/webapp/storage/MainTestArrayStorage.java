@@ -22,7 +22,7 @@ public class MainTestArrayStorage {
             ARRAY_STORAGE.save(r2);
             ARRAY_STORAGE.save(r3);
             ARRAY_STORAGE.save(r2);
-        } catch (AnExistingResumeException e) {
+        } catch (AnExistingResumeException | OutOfMemoryError e) {
             System.out.println(e.getMessage());
         }
         System.out.println("Size: " + ARRAY_STORAGE.size());

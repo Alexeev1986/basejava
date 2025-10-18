@@ -42,7 +42,7 @@ public class MainArray {
                     r.uuid = uuid;
                     try {
                         ARRAY_STORAGE.save(r);
-                    } catch (AnExistingResumeException e) {
+                    } catch (AnExistingResumeException | OutOfMemoryError e) {
                         System.out.println(e.getMessage());
                     }
                     printAll();

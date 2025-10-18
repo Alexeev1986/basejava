@@ -37,6 +37,9 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
+        if (size >= storage.length) {
+            throw new OutOfMemoryError("Ошибка: база данных заполнена, сохранение не возможно.");
+        }
         if (indexPresentResume(r.uuid) >= 0 && size != 0) {
             throw new AnExistingResumeException("Ошибка: резюме (" + r.uuid +
                     ") уже существует, сохранение не возможно.");
