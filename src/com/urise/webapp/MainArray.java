@@ -1,6 +1,7 @@
 package com.urise.webapp;
 
-import com.urise.webapp.exception.AnExistingResumeException;
+import com.urise.webapp.exception.ExistResumeException;
+import com.urise.webapp.exception.FullStorageArrayException;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
@@ -20,8 +21,8 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | size | save uuid | delete uuid " +
-                    "| update uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | size | save uuid | update uuid | " +
+                    "delete uuid | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 2) {
                 System.out.println("Неверная команда.");
@@ -43,15 +44,7 @@ public class MainArray {
                     r.setUuid(uuid);
                     try {
                         ARRAY_STORAGE.save(r);
-                    } catch (AnExistingResumeException | OutOfMemoryError e) {
-                        System.out.println(e.getMessage());
-                    }
-                    printAll();
-                    break;
-                case "delete":
-                    try {
-                        ARRAY_STORAGE.delete(uuid);
-                    } catch (NotExistResumeException e) {
+                    } catch (ExistResumeException | FullStorageArrayException e) {
                         System.out.println(e.getMessage());
                     }
                     printAll();
@@ -61,6 +54,14 @@ public class MainArray {
                     r.setUuid(uuid);
                     try {
                         ARRAY_STORAGE.update(r);
+                    } catch (NotExistResumeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    printAll();
+                    break;
+                case "delete":
+                    try {
+                        ARRAY_STORAGE.delete(uuid);
                     } catch (NotExistResumeException e) {
                         System.out.println(e.getMessage());
                     }

@@ -1,6 +1,7 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.AnExistingResumeException;
+import com.urise.webapp.exception.ExistResumeException;
+import com.urise.webapp.exception.FullStorageArrayException;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
 
@@ -16,36 +17,37 @@ public class ArrayStorage {
         size = 0;
     }
 
-    public void update(Resume r) {
-        int index = indexPresentResume(r.getUuid());
-        if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() +
-                    ") не существует, обновление не возможно.");
-        }
-        System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
-    }
-
     public void save(Resume r) {
         if (size >= storage.length) {
-            throw new OutOfMemoryError("Ошибка: база данных заполнена, сохранение не возможно.");
+            throw new FullStorageArrayException("Ошибка: база данных заполнена, сохранение не возможно.");
         }
-        if (indexPresentResume(r.getUuid()) >= 0 && size != 0) {
-            throw new AnExistingResumeException("Ошибка: резюме (" + r.getUuid() +
+        if (findResumeIndex(r.getUuid()) >= 0) {
+            throw new ExistResumeException("Ошибка: резюме (" + r.getUuid() +
                     ") уже существует, сохранение не возможно.");
         }
         storage[size++] = r;
     }
 
     public Resume get(String uuid) {
-        int index = indexPresentResume(uuid);
+        int index = findResumeIndex(uuid);
         if (index < 0) {
             throw new NotExistResumeException("Ошибка: резюме (" + uuid + ") не существует");
         }
         return storage[index];
     }
 
+    public void update(Resume r) {
+        int index = findResumeIndex(r.getUuid());
+        if (index < 0) {
+            throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() +
+                    ") не существует, обновление не возможно.");
+        }
+        storage[index].setUuid(storage[index].getUuid() + "(Update)");
+        System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
+    }
+
     public void delete(String uuid) {
-        int index = indexPresentResume(uuid);
+        int index = findResumeIndex(uuid);
         if (index < 0) {
             throw new NotExistResumeException("Ошибка: резюме (" + uuid +
                     ") не существует, удаление не возможно.");
@@ -54,7 +56,7 @@ public class ArrayStorage {
         storage[--size] = null;
     }
 
-    private int indexPresentResume(String uuid) {
+    private int findResumeIndex(String uuid) {
         int isPresent = -1;
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {

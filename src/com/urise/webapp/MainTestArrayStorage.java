@@ -1,6 +1,7 @@
 package com.urise.webapp;
 
-import com.urise.webapp.exception.AnExistingResumeException;
+import com.urise.webapp.exception.ExistResumeException;
+import com.urise.webapp.exception.FullStorageArrayException;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
@@ -23,7 +24,7 @@ public class MainTestArrayStorage {
             ARRAY_STORAGE.save(r2);
             ARRAY_STORAGE.save(r3);
             ARRAY_STORAGE.save(r2);
-        } catch (AnExistingResumeException | OutOfMemoryError e) {
+        } catch (ExistResumeException | FullStorageArrayException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("Size: " + ARRAY_STORAGE.size());
