@@ -17,9 +17,9 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        int index = indexPresentResume(r.uuid);
+        int index = indexPresentResume(r.getUuid());
         if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + r.uuid +
+            throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() +
                     ") не существует, обновление не возможно.");
         }
         System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
@@ -29,8 +29,8 @@ public class ArrayStorage {
         if (size >= storage.length) {
             throw new OutOfMemoryError("Ошибка: база данных заполнена, сохранение не возможно.");
         }
-        if (indexPresentResume(r.uuid) >= 0 && size != 0) {
-            throw new AnExistingResumeException("Ошибка: резюме (" + r.uuid +
+        if (indexPresentResume(r.getUuid()) >= 0 && size != 0) {
+            throw new AnExistingResumeException("Ошибка: резюме (" + r.getUuid() +
                     ") уже существует, сохранение не возможно.");
         }
         storage[size++] = r;
@@ -57,7 +57,7 @@ public class ArrayStorage {
     private int indexPresentResume(String uuid) {
         int isPresent = -1;
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 isPresent = i;
                 break;
             }

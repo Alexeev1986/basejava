@@ -39,7 +39,7 @@ public class MainArray {
                     break;
                 case "save":
                     r = new Resume();
-                    r.uuid = uuid;
+                    r.setUuid(uuid);
                     try {
                         ARRAY_STORAGE.save(r);
                     } catch (AnExistingResumeException | OutOfMemoryError e) {
@@ -57,7 +57,7 @@ public class MainArray {
                     break;
                 case "update":
                     r = new Resume();
-                    r.uuid = uuid;
+                    r.setUuid(uuid);
                     try {
                         ARRAY_STORAGE.update(r);
                     } catch (NotExistResumeException e) {
