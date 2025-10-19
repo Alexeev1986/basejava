@@ -42,7 +42,7 @@ public class ArrayStorage {
             throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() +
                     ") не существует, обновление не возможно.");
         }
-        storage[index].setUuid(storage[index].getUuid() + "(Update)");
+        storage[index] = r;
         System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
     }
 
