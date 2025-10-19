@@ -1,8 +1,9 @@
-package com.urise.webapp.storage;
+package com.urise.webapp;
 
 import com.urise.webapp.exception.AnExistingResumeException;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ArrayStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
