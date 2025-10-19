@@ -37,7 +37,7 @@ public class MainTestArrayStorage {
         try {
             ARRAY_STORAGE.update(r2);
             ARRAY_STORAGE.update(r4);
-        } catch (NotExistResumeException | AnExistingResumeException| IllegalArgumentException e) {
+        } catch (NotExistResumeException e) {
             System.out.println(e.getMessage());
         }
         printAll();

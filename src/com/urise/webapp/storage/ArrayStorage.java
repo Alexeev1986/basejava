@@ -17,11 +17,12 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        if (indexPresentResume(r.uuid) < 0) {
+        int index = indexPresentResume(r.uuid);
+        if (index < 0) {
             throw new NotExistResumeException("Ошибка: резюме (" + r.uuid +
                     ") не существует, обновление не возможно.");
         }
-        System.out.println("Резюме (" + r.uuid + ") успешно обновлено.");
+        System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
     }
 
     public void save(Resume r) {
@@ -53,14 +54,6 @@ public class ArrayStorage {
         storage[--size] = null;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
-    public int size() {
-        return size;
-    }
-
     private int indexPresentResume(String uuid) {
         int isPresent = -1;
         for (int i = 0; i < size; i++) {
@@ -70,6 +63,14 @@ public class ArrayStorage {
             }
         }
         return isPresent;
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
+    public int size() {
+        return size;
     }
 }
 
