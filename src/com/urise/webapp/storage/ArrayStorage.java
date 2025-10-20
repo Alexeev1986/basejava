@@ -9,7 +9,8 @@ import java.util.Arrays;
 
 public class ArrayStorage {
 
-    private final Resume[] storage = new Resume[10000];
+    private static final int STORAGE_LIMIT = 10000;
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public void clear() {
@@ -18,12 +19,11 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (size >= storage.length) {
+        if (size >= STORAGE_LIMIT) {
             throw new FullStorageArrayException("Ошибка: база данных заполнена, сохранение не возможно.");
         }
         if (findResumeIndex(r.getUuid()) >= 0) {
-            throw new ExistResumeException("Ошибка: резюме (" + r.getUuid() +
-                    ") уже существует, сохранение не возможно.");
+            throw new ExistResumeException("Ошибка: резюме (" + r.getUuid() + ") уже существует, сохранение не возможно.");
         }
         storage[size++] = r;
     }
@@ -39,8 +39,7 @@ public class ArrayStorage {
     public void update(Resume r) {
         int index = findResumeIndex(r.getUuid());
         if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() +
-                    ") не существует, обновление не возможно.");
+            throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() + ") не существует, обновление не возможно.");
         }
         storage[index] = r;
         System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
@@ -49,8 +48,7 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int index = findResumeIndex(uuid);
         if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + uuid +
-                    ") не существует, удаление не возможно.");
+            throw new NotExistResumeException("Ошибка: резюме (" + uuid + ") не существует, удаление не возможно.");
         }
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
         storage[--size] = null;
