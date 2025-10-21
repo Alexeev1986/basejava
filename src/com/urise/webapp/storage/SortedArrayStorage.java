@@ -34,9 +34,9 @@ public class SortedArrayStorage extends AbstractArrayStorage{
         if (index >= 0) {
             throw new ExistResumeException("Ошибка: резюме (" + r.getUuid() + ") уже существует, сохранение не возможно.");
         }
-        int insetIndex = -index - 1;
-        System.arraycopy(storage, insetIndex, storage, insetIndex + 1, size - insetIndex);
-        storage[insetIndex] = r;
+        int insertIndex = -index - 1;
+        System.arraycopy(storage, insertIndex, storage, insertIndex + 1, size - insertIndex);
+        storage[insertIndex] = r;
         size++;
     }
 
