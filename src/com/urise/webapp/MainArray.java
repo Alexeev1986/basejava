@@ -1,8 +1,6 @@
 package com.urise.webapp;
 
-import com.urise.webapp.exception.ExistResumeException;
-import com.urise.webapp.exception.FullStorageArrayException;
-import com.urise.webapp.exception.NotExistResumeException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.SortedArrayStorage;
 import com.urise.webapp.storage.Storage;
@@ -22,8 +20,7 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | size | save uuid | update uuid | " +
-                    "delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | size | save uuid | update uuid | " + "delete uuid | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 2) {
                 System.out.println("Неверная команда.");
@@ -41,21 +38,19 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     try {
                         ARRAY_STORAGE.save(r);
-                    } catch (ExistResumeException | FullStorageArrayException e) {
+                    } catch (StorageException e) {
                         System.out.println(e.getMessage());
                     }
                     printAll();
                     break;
                 case "update":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     try {
                         ARRAY_STORAGE.update(r);
-                    } catch (NotExistResumeException e) {
+                    } catch (StorageException e) {
                         System.out.println(e.getMessage());
                     }
                     printAll();
@@ -63,7 +58,7 @@ public class MainArray {
                 case "delete":
                     try {
                         ARRAY_STORAGE.delete(uuid);
-                    } catch (NotExistResumeException e) {
+                    } catch (StorageException e) {
                         System.out.println(e.getMessage());
                     }
                     printAll();
@@ -71,7 +66,7 @@ public class MainArray {
                 case "get":
                     try {
                         System.out.println(ARRAY_STORAGE.get(uuid));
-                    } catch (NotExistResumeException e) {
+                    } catch (StorageException e) {
                         System.out.println(e.getMessage());
                     }
                     break;

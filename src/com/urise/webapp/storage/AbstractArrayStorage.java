@@ -1,7 +1,7 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistResumeException;
-import com.urise.webapp.exception.FullStorageArrayException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
 
@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume r) {
         int index = findResumeIndex(r.getUuid());
         if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + r.getUuid() + ") не существует, обновление не возможно.");
+            throw new NotExistResumeException(r.getUuid());
         }
         storage[index] = r;
         System.out.println("Резюме (" + storage[index] + ") успешно обновлено.");
@@ -37,11 +37,11 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume r) {
         if (size >= STORAGE_LIMIT) {
-            throw new FullStorageArrayException("Ошибка: база данных заполнена, сохранение не возможно.");
+            throw new StorageException("Storage overflow", r.getUuid());
         }
         int index = findResumeIndex(r.getUuid());
         if (index >= 0) {
-            throw new ExistResumeException("Ошибка: резюме (" + r.getUuid() + ") уже существует, сохранение не возможно.");
+            throw new ExistResumeException(r.getUuid());
         }
         insertElement(r, index);
         size++;
@@ -50,7 +50,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = findResumeIndex(uuid);
         if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + uuid + ") не существует, удаление не возможно.");
+            throw new NotExistResumeException(uuid);
         }
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
         storage[size] = null;
@@ -60,7 +60,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = findResumeIndex(uuid);
         if (index < 0) {
-            throw new NotExistResumeException("Ошибка: резюме (" + uuid + ") не существует");
+            throw new NotExistResumeException(uuid);
         }
         return storage[index];
     }
