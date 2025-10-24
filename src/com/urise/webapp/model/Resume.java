@@ -1,6 +1,5 @@
 package com.urise.webapp.model;
 
-import java.lang.reflect.Method;
 import java.util.UUID;
 
 /**
