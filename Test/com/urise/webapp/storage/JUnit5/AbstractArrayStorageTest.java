@@ -80,16 +80,12 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void saveOverFlow() {
-        try {
-            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (Exception e) {
-            fail();
+        for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+            storage.save(new Resume());
         }
-        assertThrows(StorageException.class, () ->
+       assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
+       assertThrows(StorageException.class, () ->
                 storage.save(new Resume()));
-
     }
 
     @Test
