@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
@@ -19,6 +20,7 @@ public abstract class AbstractArrayStorageTest {
     protected static final String UUID_2 = "uuid2";
     protected static final String UUID_3 = "uuid3";
     protected static final String UUID_4 = "uuid4";
+    protected static final String UUID_5 = "uuid5";
     protected static final Resume RESUME_1 = new Resume(UUID_1);
     protected static final Resume RESUME_2 = new Resume(UUID_2);
     protected static final Resume RESUME_3 = new Resume(UUID_3);
@@ -52,13 +54,13 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         Resume newResume = new Resume(UUID_1);
         storage.update(newResume);
-        assertTrue(newResume == storage.get(UUID_1));
+        assertSame(newResume, storage.get(UUID_1));
 
     }
 
     @Test(expected = NotExistResumeException.class)
     public void updateNotExist() {
-        storage.get("uuid5");
+        storage.get(UUID_5);
     }
 
     @Test
@@ -83,14 +85,16 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = StorageException.class)
-    public void saveOverFlow() {
-        try {
-            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+    public void saveOverflow() {
+        storage.clear();
+        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+            try {
                 storage.save(new Resume());
+            } catch (StorageException e) {
+                Assert.fail("Ошибка: переполнение произошло раньше времени.");
             }
-        } catch (Exception e) {
-            Assert.fail();
         }
+        assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
         storage.save(new Resume());
     }
 
@@ -103,7 +107,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistResumeException.class)
     public void deleteNotExist() {
-        storage.delete("uuid5");
+        storage.delete(UUID_5);
     }
 
     @Test
@@ -116,6 +120,6 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistResumeException.class)
     public void getNotExist() {
-        storage.get("dummy");
+        storage.get(UUID_5);
     }
 }
