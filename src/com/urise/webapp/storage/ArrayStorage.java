@@ -3,7 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
-
+    @Override
     protected int findResumeIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
