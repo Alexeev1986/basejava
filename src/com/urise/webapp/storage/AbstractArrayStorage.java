@@ -12,15 +12,17 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    @Override
-    public int doSize() {
+    public int size() {
         return size;
     }
 
-    @Override
-    public void doClear() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
     }
 
     @Override
@@ -37,24 +39,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size++;
     }
 
-    protected void doDelete(int index) {
-        System.arraycopy(storage, index + 1, storage, index, size - index - 1);
-        storage[size] = null;
-        size--;
-    }
-
     @Override
-    protected Resume doGet(int index) {
+    protected Resume doGet(String uuid, int index) {
         return storage[index];
-    }
-
-    @Override
-    protected Resume[] doGetAll() {
-        return Arrays.copyOf(storage, size);
     }
 
     protected abstract int findResumeIndex(String uuid);
 
     protected abstract void insertElement(Resume r, int index);
+
+    protected abstract void doDelete(String uuid, int index);
 }
 

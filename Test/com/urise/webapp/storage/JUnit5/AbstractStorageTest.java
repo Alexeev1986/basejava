@@ -7,6 +7,10 @@ import com.urise.webapp.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStorageTest {
@@ -59,9 +63,11 @@ public abstract class AbstractStorageTest {
 
     @Test
     void getAll() {
-        Resume[] all = storage.getAll();
-        assertEquals(3, all.length);
-        assertArrayEquals(new Resume[]{RESUME_1, RESUME_2, RESUME_3}, all);
+        Resume[] getAll = storage.getAll();
+        assertEquals(3, getAll.length);
+        Set<Resume> mapStore = new HashSet<>(Arrays.asList(getAll));
+        Set<Resume> standard = Set.of(RESUME_1, RESUME_2, RESUME_3);
+        assertEquals(standard, mapStore);
     }
 
     @Test
