@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected int findResumeIndex(String uuid) {
+    protected int findResumeSearchKey(String uuid) {
         return map.containsKey(uuid) ? 0 : -1;
     }
 
@@ -33,6 +34,9 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume r, int searchKey) {
+        if (map.size() >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
+        }
         map.put(r.getUuid(), r);
     }
 

@@ -6,16 +6,15 @@ import com.urise.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
+    public static final int STORAGE_LIMIT = 10_000;
+
     public void update(Resume r) {
-        int searchKey = findResumeIndex(r.getUuid());
-        if (searchKey < 0) {
-            throw new NotExistResumeException(r.getUuid());
-        }
+        int searchKey = getExistingSearchKey(r.getUuid());
         doUpdate(r, searchKey);
     }
 
     public void save(Resume r) {
-        int searchKey = findResumeIndex(r.getUuid());
+        int searchKey = findResumeSearchKey(r.getUuid());
         if (searchKey >= 0) {
             throw new ExistResumeException(r.getUuid());
         } else {
@@ -24,22 +23,24 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        int searchKey = findResumeIndex(uuid);
-        if (searchKey < 0) {
-            throw new NotExistResumeException(uuid);
-        }
+        int searchKey = getExistingSearchKey(uuid);
         doDelete(uuid, searchKey);
     }
 
     public Resume get(String uuid) {
-        int searchKey = findResumeIndex(uuid);
-        if (searchKey < 0) {
-            throw new NotExistResumeException(uuid);
-        }
+        int searchKey = getExistingSearchKey(uuid);
         return doGet(uuid, searchKey);
     }
 
-    protected abstract int findResumeIndex(String uuid);
+    private int getExistingSearchKey(String uuid) {
+        int searchKey = findResumeSearchKey(uuid);
+        if (searchKey < 0) {
+            throw new NotExistResumeException(uuid);
+        }
+        return searchKey;
+    }
+
+    protected abstract int findResumeSearchKey(String uuid);
 
     protected abstract void doUpdate(Resume r, int searchKey);
 
