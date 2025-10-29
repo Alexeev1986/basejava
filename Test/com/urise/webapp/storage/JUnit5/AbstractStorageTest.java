@@ -2,9 +2,7 @@ package com.urise.webapp.storage.JUnit5;
 
 import com.urise.webapp.exception.ExistResumeException;
 import com.urise.webapp.exception.NotExistResumeException;
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.AbstractArrayStorage;
 import com.urise.webapp.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,20 +80,6 @@ public abstract class AbstractStorageTest {
     @Test
     void saveExistResume() {
         assertThrows(ExistResumeException.class, () -> storage.save(RESUME_1));
-    }
-
-    @Test
-    void saveOverflow() {
-        storage.clear();
-        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-            try {
-                storage.save(new Resume());
-            } catch (StorageException e) {
-                fail("Ошибка: переполнение произошло раньше времени");
-            }
-        }
-        assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
-        assertThrows(StorageException.class, () -> storage.save(new Resume()));
     }
 
     @Test
