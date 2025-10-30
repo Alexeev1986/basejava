@@ -11,9 +11,9 @@ public class MainTestMapStorage {
     private static final MapStorage MAP_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume("uuid1");
-        final Resume r2 = new Resume("uuid2");
-        final Resume r3 = new Resume("uuid3");
+        final Resume r1 = new Resume("uuid1", "Курочкин Евгений Николаевич");
+        final Resume r2 = new Resume("uuid2", "Иванов Никита Николаевич");
+        final Resume r3 = new Resume("uuid3", "Полохов Алексей Владимирович");
         try {
             MAP_STORAGE.save(r1);
             MAP_STORAGE.save(r2);
@@ -51,7 +51,7 @@ public class MainTestMapStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : MAP_STORAGE.getAll()) {
+        for (Resume r : MAP_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }

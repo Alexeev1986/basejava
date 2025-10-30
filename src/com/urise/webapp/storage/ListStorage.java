@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,16 @@ public class ListStorage extends AbstractStorage {
         list.clear();
     }
 
-    public Resume[] getAll() {
-        return list.toArray(new Resume[0]);
+    public List<Resume> getAllSorted() {
+        list.sort((o1, o2) -> {
+            int result = o1.getFullName().compareTo(o2.getFullName());
+            if (result == 0) {
+                return o1.getUuid().compareTo(o2.getUuid());
+            }
+            return result;
+        });
+
+        return list;
     }
 
     @Override

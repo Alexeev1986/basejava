@@ -7,7 +7,6 @@ import com.urise.webapp.storage.ListStorage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -85,7 +84,7 @@ public class MainList {
     }
 
     static void printAll() {
-        List<Resume> all = Arrays.asList(LIST_STORAGE.getAll());
+        List<Resume> all = LIST_STORAGE.getAllSorted();
         System.out.println("----------------------------");
         if (all.isEmpty()) {
             System.out.println("Empty");

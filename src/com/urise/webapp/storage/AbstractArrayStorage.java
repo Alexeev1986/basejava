@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-
+import java.util.List;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
@@ -19,8 +19,16 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    public List<Resume> getAllSorted() {
+        Resume[] copy = Arrays.copyOf(storage, size);
+        Arrays.sort(copy, (o1, o2) -> {
+            int result = o1.getFullName().compareTo(o2.getFullName());
+            if (result == 0) {
+                return o1.getUuid().compareTo(o2.getUuid());
+            }
+            return result;
+        });
+        return Arrays.asList(copy);
     }
 
     @Override
@@ -38,7 +46,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         }
-        insertElement(r, (Integer) index);
+        insertElement(r, index);
         size++;
     }
 

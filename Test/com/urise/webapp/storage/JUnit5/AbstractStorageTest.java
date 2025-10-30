@@ -6,9 +6,8 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,11 +19,11 @@ public abstract class AbstractStorageTest {
     protected static final String UUID_3 = "uuid3";
     protected static final String UUID_4 = "uuid4";
     protected static final String UUID_5 = "uuid5";
-    protected static final Resume RESUME_1 = new Resume(UUID_1);
-    protected static final Resume RESUME_2 = new Resume(UUID_2);
-    protected static final Resume RESUME_3 = new Resume(UUID_3);
-    protected static final Resume RESUME_4 = new Resume(UUID_4);
-    protected static final Resume RESUME_5 = new Resume(UUID_5);
+    protected static final Resume RESUME_1 = new Resume(UUID_1, "Курочкин Евгений Николаевич");
+    protected static final Resume RESUME_2 = new Resume(UUID_2, "Иванов Никита Николаевич");
+    protected static final Resume RESUME_3 = new Resume(UUID_3, "Полохов Алексей Владимирович");
+    protected static final Resume RESUME_4 = new Resume(UUID_4, "Петров Данила Васильевич");
+    protected static final Resume RESUME_5 = new Resume(UUID_5, "Самар Павел Вечиславович");
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -63,9 +62,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     void getAll() {
-        Resume[] getAll = storage.getAll();
-        assertEquals(3, getAll.length);
-        Set<Resume> mapStore = new HashSet<>(Arrays.asList(getAll));
+        List<Resume> getAll =  storage.getAllSorted();
+        assertEquals(3, getAll.size());
+        Set<Resume> mapStore = new HashSet<>(getAll);
         Set<Resume> standard = Set.of(RESUME_1, RESUME_2, RESUME_3);
         assertEquals(standard, mapStore);
     }

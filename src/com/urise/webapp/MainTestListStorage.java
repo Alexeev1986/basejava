@@ -11,13 +11,15 @@ public class MainTestListStorage {
     private static final ListStorage LIST_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume("uuid1");
-        final Resume r2 = new Resume("uuid2");
-        final Resume r3 = new Resume("uuid3");
+        final Resume r1 = new Resume("uuid1", "Курочкин Евгений Николаевич");
+        final Resume r2 = new Resume("uuid2", "Полохов Алексей Владимирович");
+        final Resume r3 = new Resume("uuid3", "Полохов Алексей Владимирович");
+
         try {
             LIST_STORAGE.save(r1);
-            LIST_STORAGE.save(r2);
+
             LIST_STORAGE.save(r3);
+            LIST_STORAGE.save(r2);
             LIST_STORAGE.save(r2);
         } catch (StorageException e) {
             System.out.println(e.getMessage());
@@ -51,7 +53,7 @@ public class MainTestListStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : LIST_STORAGE.getAll()) {
+        for (Resume r : LIST_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }
