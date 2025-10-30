@@ -9,44 +9,51 @@ public abstract class AbstractStorage implements Storage {
     public static final int STORAGE_LIMIT = 10_000;
 
     public void update(Resume r) {
-        int searchKey = getExistingSearchKey(r.getUuid());
+        Object searchKey = getExistingSearchKey(r.getUuid());
         doUpdate(r, searchKey);
     }
 
     public void save(Resume r) {
-        int searchKey = findResumeSearchKey(r.getUuid());
-        if (searchKey >= 0) {
-            throw new ExistResumeException(r.getUuid());
-        } else {
-            doSave(r, searchKey);
-        }
+        Object searchKey = getNotExistingSearchKey(r.getUuid());
+        doSave(r, searchKey);
+
     }
 
     public void delete(String uuid) {
-        int searchKey = getExistingSearchKey(uuid);
+        Object searchKey = getExistingSearchKey(uuid);
         doDelete(uuid, searchKey);
     }
 
     public Resume get(String uuid) {
-        int searchKey = getExistingSearchKey(uuid);
+        Object searchKey = getExistingSearchKey(uuid);
         return doGet(uuid, searchKey);
     }
 
-    private int getExistingSearchKey(String uuid) {
-        int searchKey = findResumeSearchKey(uuid);
-        if (searchKey < 0) {
+    private Object getExistingSearchKey(String uuid) {
+        Object searchKey = findResumeSearchKey(uuid);
+        if (!isExist(searchKey)) {
             throw new NotExistResumeException(uuid);
         }
         return searchKey;
     }
 
-    protected abstract int findResumeSearchKey(String uuid);
+    private Object getNotExistingSearchKey(String uuid) {
+        Object searchKey = findResumeSearchKey(uuid);
+        if (isExist(searchKey)) {
+            throw new ExistResumeException(uuid);
+        }
+        return searchKey;
+    }
 
-    protected abstract void doUpdate(Resume r, int searchKey);
+    protected abstract boolean isExist(Object searchKey);
 
-    protected abstract void doSave(Resume r, int searchKey);
+    protected abstract Integer findResumeSearchKey(String uuid);
 
-    protected abstract void doDelete(String uuid, int searchKey);
+    protected abstract void doUpdate(Resume r, Object searchKey);
 
-    protected abstract Resume doGet(String uuid, int searchKey);
+    protected abstract void doSave(Resume r, Object searchKey);
+
+    protected abstract void doDelete(String uuid, Object searchKey);
+
+    protected abstract Resume doGet(String uuid, Object searchKey);
 }

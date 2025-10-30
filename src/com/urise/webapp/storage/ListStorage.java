@@ -22,33 +22,38 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int findResumeSearchKey(String uuid) {
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected Integer findResumeSearchKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
-    protected void doUpdate(Resume r, int searchKey) {
-        list.set(searchKey, r);
+    protected void doUpdate(Resume r, Object searchKey) {
+        list.set((Integer) searchKey, r);
     }
 
     @Override
-    protected void doSave(Resume r, int searchKey) {
+    protected void doSave(Resume r, Object searchKey) {
         list.add(r);
     }
 
     @Override
-    protected void doDelete(String uuid, int searchKey) {
-        list.remove(searchKey);
+    protected void doDelete(String uuid, Object searchKey) {
+        list.remove(((Integer) searchKey).intValue());
     }
 
     @Override
-    protected Resume doGet(String uuid, int searchKey) {
-        return list.get(searchKey);
+    protected Resume doGet(String uuid, Object searchKey) {
+        return list.get((Integer) searchKey);
     }
 }
 

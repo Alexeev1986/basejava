@@ -49,10 +49,19 @@ public class MainCollections {
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());
         }
+        List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2,RESUME_3);
+        //resumes.remove(1);
+        printAnyList(resumes);
     }
 
     private static void printList() {
         for (Resume r : collection) {
+            System.out.println(r);
+        }
+    }
+
+    private static void printAnyList(List<Resume> list) {
+        for (Resume r : list) {
             System.out.println(r);
         }
     }
