@@ -16,15 +16,8 @@ public class ListStorage extends AbstractStorage {
         list.clear();
     }
 
-    public List<Resume> getAllSorted() {
-        list.sort((o1, o2) -> {
-            int result = o1.getFullName().compareTo(o2.getFullName());
-            if (result == 0) {
-                return o1.getUuid().compareTo(o2.getUuid());
-            }
-            return result;
-        });
-
+    @Override
+    protected List<Resume> doSaveAll() {
         return list;
     }
 

@@ -12,12 +12,13 @@ public class MainTestMapStorage {
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1", "Курочкин Евгений Николаевич");
-        final Resume r2 = new Resume("uuid2", "Иванов Никита Николаевич");
+        final Resume r2 = new Resume("uuid2", "Полохов Алексей Владимирович");
         final Resume r3 = new Resume("uuid3", "Полохов Алексей Владимирович");
         try {
+            MAP_STORAGE.save(r3);
             MAP_STORAGE.save(r1);
             MAP_STORAGE.save(r2);
-            MAP_STORAGE.save(r3);
+
             MAP_STORAGE.save(r2);
         } catch (StorageException e) {
             System.out.println(e.getMessage());
