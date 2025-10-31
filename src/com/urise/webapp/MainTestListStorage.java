@@ -31,7 +31,7 @@ public class MainTestListStorage {
         } catch (StorageException e) {
             System.out.println(e.getMessage());
         }
-        final Resume r4 = new Resume("uuid4");
+        final Resume r4 = new Resume("uuid4", "Самар Павел Вечиславович");
         try {
             LIST_STORAGE.update(r2);
             LIST_STORAGE.update(r4);

@@ -33,7 +33,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public List<Resume> getAllSorted() {
-        List<Resume> list = doSaveAll();
+        List<Resume> list = doGetAll();
         list.sort(new Comparator<Resume>() {
             @Override
             public int compare(Resume o1, Resume o2) {
@@ -76,5 +76,5 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(String uuid, Object searchKey);
 
-    protected  abstract List<Resume> doSaveAll();
+    protected  abstract List<Resume> doGetAll();
 }

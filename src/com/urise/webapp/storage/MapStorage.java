@@ -18,7 +18,7 @@ public class MapStorage extends AbstractStorage {
         map.clear();
     }
 
-    public List<Resume> doSaveAll() {
+    public List<Resume> doGetAll() {
         return new ArrayList<>(map.values());
     }
 

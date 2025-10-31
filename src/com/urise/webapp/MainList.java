@@ -20,15 +20,15 @@ public class MainList {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | size | save uuid | update uuid | " + "delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | size | save fullName | update uuid fullName| " + "delete uuid | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
-            if (params.length < 1 || params.length > 2) {
+            if (params.length < 1 || params.length > 3) {
                 System.out.println("Неверная команда.");
                 continue;
             }
-            String uuid = null;
-            if (params.length == 2) {
-                uuid = params[1].intern();
+            String param = null;
+            if (params.length > 1) {
+                param = params[1].intern();
             }
             switch (params[0]) {
                 case "list":
@@ -38,7 +38,7 @@ public class MainList {
                     System.out.println(LIST_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(uuid);
+                    r = new Resume(param);
                     try {
                         LIST_STORAGE.save(r);
                     } catch (StorageException e) {
@@ -47,7 +47,7 @@ public class MainList {
                     printAll();
                     break;
                 case "update":
-                    r = new Resume(uuid);
+                    r = new Resume(param, params[2]);
                     try {
                         LIST_STORAGE.update(r);
                     } catch (StorageException e) {
@@ -57,7 +57,7 @@ public class MainList {
                     break;
                 case "delete":
                     try {
-                        LIST_STORAGE.delete(uuid);
+                        LIST_STORAGE.delete(param);
                     } catch (StorageException e) {
                         System.out.println(e.getMessage());
                     }
@@ -65,7 +65,7 @@ public class MainList {
                     break;
                 case "get":
                     try {
-                        System.out.println(LIST_STORAGE.get(uuid));
+                        System.out.println(LIST_STORAGE.get(param));
                     } catch (StorageException e) {
                         System.out.println(e.getMessage());
                     }

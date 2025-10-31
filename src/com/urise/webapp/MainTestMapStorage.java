@@ -30,7 +30,7 @@ public class MainTestMapStorage {
         } catch (StorageException e) {
             System.out.println(e.getMessage());
         }
-        final Resume r4 = new Resume("uuid4");
+        final Resume r4 = new Resume("uuid4", "Самар Павел Вечиславович");
         try {
             MAP_STORAGE.update(r2);
             MAP_STORAGE.update(r4);
