@@ -66,7 +66,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract boolean isExist(Object searchKey);
 
-    protected abstract Integer findResumeSearchKey(String uuid);
+    protected abstract Object findResumeSearchKey(String uuid);
 
     protected abstract void doUpdate(Resume r, Object searchKey);
 

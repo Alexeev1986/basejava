@@ -28,7 +28,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Integer findResumeSearchKey(String uuid) {
+    protected Object findResumeSearchKey(String uuid) {
         return map.containsKey(uuid) ? 0 : -1;
     }
 
