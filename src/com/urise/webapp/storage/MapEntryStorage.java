@@ -25,8 +25,8 @@ public class MapEntryStorage extends AbstractStorage{
         return null;
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     protected void doUpdate(Resume r, Object searchKey) {
         Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
         entry.setValue(r);
@@ -37,15 +37,15 @@ public class MapEntryStorage extends AbstractStorage{
         map.put(r.getUuid(), r);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     protected void doDelete(String uuid, Object searchKey) {
         Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
         map.remove(entry.getKey());
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     protected Resume doGet(String uuid, Object searchKey) {
         Map.Entry<String,Resume> entry = (Map.Entry<String, Resume>) searchKey;
         return entry.getValue();
