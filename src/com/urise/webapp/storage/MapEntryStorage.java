@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapEntryStorage extends AbstractStorage{
+public class MapEntryStorage extends AbstractStorage {
     protected final Map<String, Resume> map = new HashMap<>();
 
     @Override
@@ -47,7 +47,7 @@ public class MapEntryStorage extends AbstractStorage{
     @SuppressWarnings("unchecked")
     @Override
     protected Resume doGet(String uuid, Object searchKey) {
-        Map.Entry<String,Resume> entry = (Map.Entry<String, Resume>) searchKey;
+        Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
         return entry.getValue();
     }
 

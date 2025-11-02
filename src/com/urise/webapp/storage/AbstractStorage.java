@@ -9,8 +9,6 @@ import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
-    public static final int STORAGE_LIMIT = 10_000;
-
     public void update(Resume r) {
         Object searchKey = getExistingSearchKey(r.getUuid());
         doUpdate(r, searchKey);
@@ -34,17 +32,7 @@ public abstract class AbstractStorage implements Storage {
 
     public List<Resume> getAllSorted() {
         List<Resume> list = doGetAll();
-        list.sort(new Comparator<Resume>() {
-            @Override
-            public int compare(Resume o1, Resume o2) {
-                int result = o1.getFullName().compareTo(o2.getFullName());
-                if (result == 0) {
-                    return o1.getUuid().compareTo(o2.getUuid());
-                }
-                return result;
-            }
-        });
-
+        list.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
         return list;
     }
 
@@ -76,5 +64,5 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(String uuid, Object searchKey);
 
-    protected  abstract List<Resume> doGetAll();
+    protected abstract List<Resume> doGetAll();
 }
