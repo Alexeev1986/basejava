@@ -6,31 +6,40 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
 
+    //protected final Logger log = Logger.getLogger(getClass().getName());
+    private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
+
     public void update(Resume r) {
+        LOG.info("Update " + r);
         SK searchKey = getExistingSearchKey(r.getUuid());
         doUpdate(r, searchKey);
     }
 
     public void save(Resume r) {
+        LOG.info("Save " + r);
         SK searchKey = getNotExistingSearchKey(r.getUuid());
         doSave(r, searchKey);
 
     }
 
     public void delete(String uuid) {
+        LOG.info("Delete " + uuid);
         SK searchKey = getExistingSearchKey(uuid);
         doDelete(searchKey);
     }
 
     public Resume get(String uuid) {
+        LOG.info("Get " + uuid);
         SK searchKey = getExistingSearchKey(uuid);
         return doGet(searchKey);
     }
 
     public List<Resume> getAllSorted() {
+        LOG.info("GetAllSorted");
         List<Resume> list = doGetAll();
         list.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
         return list;
