@@ -7,16 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapEntryStorage extends AbstractStorage {
+public class MapEntryStorage extends AbstractStorage<Map.Entry<String, Resume>> {
     protected final Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected boolean isExist(Object searchKey) {
+    protected boolean isExist(Map.Entry<String, Resume> searchKey) {
         return searchKey != null;
     }
 
     @Override
-    protected Object findResumeSearchKey(String uuid) {
+    protected Map.Entry<String, Resume> findResumeSearchKey(String uuid) {
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             if (entry.getKey().equals(uuid)) {
                 return entry;
@@ -25,30 +25,24 @@ public class MapEntryStorage extends AbstractStorage {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
-        Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
-        entry.setValue(r);
+    protected void doUpdate(Resume r, Map.Entry<String, Resume> searchKey) {
+        searchKey.setValue(r);
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
+    protected void doSave(Resume r, Map.Entry<String, Resume> searchKey) {
         map.put(r.getUuid(), r);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected void doDelete(Object searchKey) {
-        Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
-        map.remove(entry.getKey());
+    protected void doDelete(Map.Entry<String, Resume> searchKey) {
+        map.remove(searchKey.getKey());
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected Resume doGet(Object searchKey) {
-        Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
-        return entry.getValue();
+    protected Resume doGet(Map.Entry<String, Resume> searchKey) {
+        return searchKey.getValue();
     }
 
     @Override
