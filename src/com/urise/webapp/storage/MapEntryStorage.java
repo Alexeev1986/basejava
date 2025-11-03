@@ -39,14 +39,14 @@ public class MapEntryStorage extends AbstractStorage {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected void doDelete(String uuid, Object searchKey) {
+    protected void doDelete(Object searchKey) {
         Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
         map.remove(entry.getKey());
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Resume doGet(String uuid, Object searchKey) {
+    protected Resume doGet(Object searchKey) {
         Map.Entry<String, Resume> entry = (Map.Entry<String, Resume>) searchKey;
         return entry.getValue();
     }

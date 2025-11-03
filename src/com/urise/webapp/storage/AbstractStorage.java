@@ -22,12 +22,12 @@ public abstract class AbstractStorage implements Storage {
 
     public void delete(String uuid) {
         Object searchKey = getExistingSearchKey(uuid);
-        doDelete(uuid, searchKey);
+        doDelete(searchKey);
     }
 
     public Resume get(String uuid) {
         Object searchKey = getExistingSearchKey(uuid);
-        return doGet(uuid, searchKey);
+        return doGet(searchKey);
     }
 
     public List<Resume> getAllSorted() {
@@ -60,9 +60,9 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void doSave(Resume r, Object searchKey);
 
-    protected abstract void doDelete(String uuid, Object searchKey);
+    protected abstract void doDelete(Object searchKey);
 
-    protected abstract Resume doGet(String uuid, Object searchKey);
+    protected abstract Resume doGet(Object searchKey);
 
     protected abstract List<Resume> doGetAll();
 }

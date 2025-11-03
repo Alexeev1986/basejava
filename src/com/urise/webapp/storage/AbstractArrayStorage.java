@@ -47,7 +47,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(String uuid, Object index) {
+    protected Resume doGet(Object index) {
         return storage[(Integer) index];
     }
 
@@ -55,6 +55,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void insertElement(Resume r, Object index);
 
-    protected abstract void doDelete(String uuid, Object index);
+    protected abstract void doDelete(Object index);
 }
 

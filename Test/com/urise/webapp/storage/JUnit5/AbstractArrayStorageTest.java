@@ -16,7 +16,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         super(storage);
     }
     @Test
-    void getAll() {
+    void getAllSorted() {
         Resume[] getAll = storage.getAllSorted().toArray(new Resume[0]);
         Resume[] expected = {RESUME_1, RESUME_2, RESUME_3};
         Arrays.sort(expected, (o1, o2) -> {

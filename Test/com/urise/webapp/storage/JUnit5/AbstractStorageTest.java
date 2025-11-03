@@ -61,7 +61,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    void getAll() {
+    void getAllSorted() {
         List<Resume> getAll =  storage.getAllSorted();
         assertEquals(3, getAll.size());
         Set<Resume> mapStore = new HashSet<>(getAll);
