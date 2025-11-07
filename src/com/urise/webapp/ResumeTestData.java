@@ -9,7 +9,8 @@ public class ResumeTestData {
 
 
     public static void main(String[] args) {
-        Resume resume = new Resume("Григорий Кислин", "uuid7");
+        Resume resume = new Resume("uuid7", "Григорий Кислин");
+        System.out.println(resume.getFullName() + ": " + resume.getUuid());
         initialContact(resume);
         printContact(resume);
         initialSections(resume);

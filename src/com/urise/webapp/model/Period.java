@@ -1,26 +1,32 @@
 package com.urise.webapp.model;
 
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Period extends OrganizationsSection {
-    private final String startDate;
-    private final String endDate;
+    private final YearMonth startDate;
+    private YearMonth endDate;
     private final String title;
     private final String description;
 
     public Period(String startDate, String endDate, String title, String description) {
-        this.startDate = Objects.requireNonNull(startDate, "start date must not be null");
-        this.endDate = endDate;
+        this.startDate = Objects.requireNonNull(YearMonth.parse(startDate, DateTimeFormatter.ofPattern("MM/yyyy")),
+                "start date must not be null");
+        if (endDate != null && !endDate.isEmpty()) {
+            this.endDate = YearMonth.parse(endDate, DateTimeFormatter.ofPattern("MM/yyyy"));
+        }
+
         this.title = Objects.requireNonNull(title, "organization must not be null");
         this.description = description != null ? description : "";
     }
 
-    public String getStartDate() {
+    public YearMonth getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public YearMonth getEndDate() {
         return endDate;
     }
 
