@@ -29,7 +29,7 @@ public class Resume implements Comparable<Resume> {
     }
 
     public void setContact(ContactType type, String value) {
-        if (value == null || value.trim().isEmpty()) {
+        if (value == null || value.isBlank()) {
             contacts.remove(type);
         } else {
             contacts.put(type, value.trim());
@@ -40,7 +40,7 @@ public class Resume implements Comparable<Resume> {
         return sections.get(type);
     }
 
-    public void setSections(SectionType type, Section section) {
+    public void setSection(SectionType type, Section section) {
         if (section == null) {
             sections.remove(type);
         } else {
