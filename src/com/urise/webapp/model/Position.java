@@ -5,13 +5,13 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Period extends OrganizationsSection {
+public class Position extends OrganizationsSection {
     private final YearMonth startDate;
     private YearMonth endDate;
     private final String title;
     private final String description;
 
-    public Period(String startDate, String endDate, String title, String description) {
+    public Position(String startDate, String endDate, String title, String description) {
         this.startDate = Objects.requireNonNull(YearMonth.parse(startDate, DateTimeFormatter.ofPattern("MM/yyyy")),
                 "start date must not be null");
         if (endDate != null && !endDate.isEmpty()) {

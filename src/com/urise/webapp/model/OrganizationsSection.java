@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizationsSection extends Section {
-    private final List<OrganizationEntry> entries = new ArrayList<>();
+    private final List<Organization> entries = new ArrayList<>();
 
-    public void add(String nameOrg, String urlOrg, List<Period> periods) {
-        entries.add(new OrganizationEntry(nameOrg, urlOrg, periods));
+    public void add(String nameOrg, String urlOrg, List<Position> positions) {
+        entries.add(new Organization(nameOrg, urlOrg, positions));
     }
 
-    public void add(String nameOrg, String urlOrg, Period period) {
-        entries.add(new OrganizationEntry(nameOrg, urlOrg, period));
+    public void add(String nameOrg, String urlOrg, Position position) {
+        entries.add(new Organization(nameOrg, urlOrg, position));
     }
 
-    public List<OrganizationEntry> getAll() {
+    public List<Organization> getAll() {
         return List.copyOf(entries);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (OrganizationEntry entry : entries) {
+        for (Organization entry : entries) {
             sb.append(entry.toString()).append("\n");
         }
         return sb.toString().trim();

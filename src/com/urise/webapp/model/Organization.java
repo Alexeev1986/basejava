@@ -3,21 +3,21 @@ package com.urise.webapp.model;
 import java.util.Collections;
 import java.util.List;
 
-public class OrganizationEntry {
+public class Organization {
     private final String name;
     private final String url;
-    private final List<Period> periods;
+    private final List<Position> positions;
 
-    public OrganizationEntry(String name, String url, List<Period> periods) {
+    public Organization(String name, String url, List<Position> positions) {
         this.name = name;
         this.url = url;
-        this.periods = List.copyOf(periods);
+        this.positions = List.copyOf(positions);
     }
 
-    public OrganizationEntry(String name, String url, Period period) {
+    public Organization(String name, String url, Position position) {
         this.name = name;
         this.url = url;
-        this.periods = Collections.singletonList(period);
+        this.positions = Collections.singletonList(position);
 
     }
 
@@ -29,8 +29,8 @@ public class OrganizationEntry {
         return url;
     }
 
-    public List<Period> getPeriods() {
-        return periods;
+    public List<Position> getPeriods() {
+        return positions;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class OrganizationEntry {
             sb.append(" [").append(url).append("]");
         }
         sb.append("\n");
-        sb.append(periods.toString());
+        sb.append(positions.toString());
         return sb.toString();
     }
 }

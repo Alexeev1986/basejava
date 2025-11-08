@@ -34,16 +34,16 @@ public class ResumeTestData {
     }
 
     private static void initialSections(Resume resume) {
-        resume.setSections(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного " +
+        resume.setSection(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного " +
                 "обучения по Java Web и Enterprise технологиям"));
-        resume.setSections(SectionType.PERSONAL, new TextSection("Аналитический склад ума," +
+        resume.setSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума," +
                 " сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-        resume.setSections(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
-        resume.setSections(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
+        resume.setSection(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
+        resume.setSection(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
 
 
-        resume.setSections(SectionType.EXPERIENCE, initExperience());
-        resume.setSections(SectionType.EDUCATION, initEducation());
+        resume.setSection(SectionType.EXPERIENCE, initExperience());
+        resume.setSection(SectionType.EDUCATION, initEducation());
     }
 
     private static List<String> initAchievement() {
@@ -116,18 +116,18 @@ public class ResumeTestData {
     private static OrganizationsSection initExperience() {
         OrganizationsSection experience = new OrganizationsSection();
         experience.add("Java Online Projects ", " https://javaops.ru/",
-                new Period("10/2013", null,
+                new Position("10/2013", null,
                         "Автор проекта.",
                         "Создание, организация и проведение Java онлайн проектов и стажировок."));
         experience.add("Wrike", "https://www.wrike.com/",
-                new Period("10/2014", "01/2016",
+                new Position("10/2014", "01/2016",
                         "Старший разработчик (backend)",
                         """
                                 Проектирование и разработка онлайн платформы управления проектами
                                  Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis)
                                  Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."""));
         experience.add("RIT Center", "",
-                new Period("04/2012", "10/2014",
+                new Position("04/2012", "10/2014",
                         "Java архитектор",
                         """
                                 Организация процесса разработки системы ERP для разных окружений:
@@ -140,7 +140,7 @@ public class ResumeTestData {
                                 Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis,
                                  Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python"""));
         experience.add("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/",
-                new Period("12/2010", "04/2012",
+                new Position("12/2010", "04/2012",
                         "Ведущий программист",
                         """
                                 Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC,
@@ -149,7 +149,7 @@ public class ResumeTestData {
                                  в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT),
                                  Highstock, Commet, HTML5."""));
         experience.add("Yota", "https://www.yota.ru/",
-                new Period("06/2008", "12/2010",
+                new Position("06/2008", "12/2010",
                         "Ведущий специалист",
                         """
                                 Дизайн и имплементация Java EE фреймворка для отдела "Платежные Системы"
@@ -157,19 +157,19 @@ public class ResumeTestData {
                                  Реализация администрирования, статистики и мониторинга фреймворка.
                                 Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"""));
         experience.add("Enkata", "https://enkata.com/",
-                new Period("03/2007", "06/2008",
+                new Position("03/2007", "06/2008",
                         "Разработчик ПО",
                         """
                                 Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS)
                                 частей кластерного J2EE приложения (OLAP, Data mining)."""));
         experience.add("Siemens AG", "https://www.siemens.com/global/en.html",
-                new Period("01/2005", "02/2007",
+                new Position("01/2005", "02/2007",
                         "Разработчик ПО",
                         """
                                 Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО
                                 на мобильной IN платформе Siemens @vantage (Java, Unix)."""));
         experience.add("Alcatel", "https://alcatel.ru/",
-                new Period("09/1997", "01/2005",
+                new Position("09/1997", "01/2005",
                         "Инженер по аппаратному и программному тестированию",
                         """
                                 Тестирование, отладка, внедрение ПО цифровой телефонной станции
@@ -181,41 +181,41 @@ public class ResumeTestData {
 
         OrganizationsSection education = new OrganizationsSection();
         education.add("Coursera", "coursera.org/course/progfun",
-                new Period("03/2013", "05/2013",
+                new Position("03/2013", "05/2013",
                         "'Functional Programming Principles in Scala' by Martin Odersky",
                         ""));
 
         education.add("Luxoft", "https://www.luxoft-training.ru/training/catalog/course.html?ID=22366",
-                new Period("03/2011", "04/2011",
+                new Position("03/2011", "04/2011",
                         "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'",
                         ""));
 
 
         education.add("Siemens AG", "http://www.siemens.ru/",
-                new Period("01/2005", "04/2005",
+                new Position("01/2005", "04/2005",
                         "3 месяца обучения мобильным IN сетям (Берлин)",
                         ""));
 
 
         education.add("Alcatel", "https://alcatel.ru/",
-                new Period("09/1997", "03/1998",
+                new Position("09/1997", "03/1998",
                         "6 месяцев обучения цифровым телефонным сетям (Москва)",
                         ""));
 
 
-        List<Period> period = new ArrayList<>();
-        period.add(new Period("09/1993", "07/1996",
+        List<Position> position = new ArrayList<>();
+        position.add(new Position("09/1993", "07/1996",
                 "Аспирантура (программист С, С++)",
                 ""));
-        period.add(new Period("09/1987", "07/1993",
+        position.add(new Position("09/1987", "07/1993",
                 "Инженер (программист Fortran, C)",
                 ""));
         education.add("Санкт-Петербургский национальный исследовательский университет информационных \n" +
-                        " ".repeat(35)  + "технологий,механики и оптики", "https://itmo.ru/", period);
+                        " ".repeat(35)  + "технологий,механики и оптики", "https://itmo.ru/", position);
 
 
         education.add("Заочная физико-техническая школа при МФТИ", "https://mipt.ru/",
-                new Period("09/1984", "06/1987",
+                new Position("09/1984", "06/1987",
                         "Закончил с отличием",
                         ""));
         return education;
