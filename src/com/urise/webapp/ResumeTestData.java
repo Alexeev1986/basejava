@@ -18,13 +18,13 @@ public class ResumeTestData {
     }
 
     private static void initialContact(Resume resume) {
-        resume.setContacts(ContactType.PHONE, "+7(921) 855-0482");
-        resume.setContacts(ContactType.SKYPE, "grigory.kislin");
-        resume.setContacts(ContactType.MAIL, "gkislin@yandex.ru");
-        resume.setContacts(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        resume.setContacts(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.setContacts(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        resume.setContacts(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        resume.setContact(ContactType.PHONE, "+7(921) 855-0482");
+        resume.setContact(ContactType.SKYPE, "grigory.kislin");
+        resume.setContact(ContactType.MAIL, "gkislin@yandex.ru");
+        resume.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        resume.setContact(ContactType.GITHUB, "https://github.com/gkislin");
+        resume.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        resume.setContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
     }
 
     private static void printContact(Resume resume) {

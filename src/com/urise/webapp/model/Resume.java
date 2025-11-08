@@ -28,7 +28,7 @@ public class Resume implements Comparable<Resume> {
         return contacts.get(type);
     }
 
-    public void setContacts(ContactType type, String value) {
+    public void setContact(ContactType type, String value) {
         if (value == null || value.trim().isEmpty()) {
             contacts.remove(type);
         } else {
