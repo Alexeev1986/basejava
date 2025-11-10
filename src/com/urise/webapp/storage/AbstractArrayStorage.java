@@ -51,10 +51,17 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         return storage[index];
     }
 
+    @Override
+    protected void doDelete(Integer index) {
+        doBeforeDelete(index);
+        size--;
+    }
+
+
     protected abstract Integer findResumeSearchKey(String uuid);
 
     protected abstract void insertElement(Resume r, Integer index);
 
-    protected abstract void doDelete(Integer index);
+    protected abstract void doBeforeDelete(Integer index);
 }
 
