@@ -45,5 +45,20 @@ public class Position extends OrganizationsSection {
                 (endDate != null ? endDate : "настоящее время") + " : " +
                 title + "\n" +
                 description.indent(22) + "\n";
-        }
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        Position position = (Position) object;
+        return Objects.equals(startDate, position.startDate) && Objects.equals(endDate, position.endDate) &&
+                Objects.equals(title, position.title) && Objects.equals(description, position.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), startDate, endDate, title, description);
+    }
 }

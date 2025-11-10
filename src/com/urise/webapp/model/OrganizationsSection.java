@@ -2,6 +2,7 @@ package com.urise.webapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrganizationsSection extends Section {
     private final List<Organization> entries = new ArrayList<>();
@@ -25,6 +26,18 @@ public class OrganizationsSection extends Section {
             sb.append(entry.toString()).append("\n");
         }
         return sb.toString().trim();
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        OrganizationsSection that = (OrganizationsSection) object;
+        return Objects.equals(entries, that.entries);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(entries);
     }
 }

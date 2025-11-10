@@ -2,17 +2,20 @@ package com.urise.webapp.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Organization {
     private final Link link;
     private final List<Position> positions;
 
     public Organization(String name, String url, List<Position> positions) {
+        Objects.requireNonNull(name, "neme must not be null");
         this.link = new Link(name, url);
         this.positions = List.copyOf(positions);
     }
 
     public Organization(String name, String url, Position position) {
+        Objects.requireNonNull(name, "neme must not be null");
         this.link = new Link(name, url);
         this.positions = Collections.singletonList(position);
 
@@ -32,6 +35,19 @@ public class Organization {
         sb.append(prefix).append(link).append("\n");
         sb.append(positions.toString());
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Organization that = (Organization) object;
+        return Objects.equals(link, that.link) && Objects.equals(positions, that.positions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(link, positions);
     }
 
     public static class Link {
@@ -57,6 +73,19 @@ public class Organization {
                 return name + ": " + url;
             }
             return name;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (this == object) return true;
+            if (object == null || getClass() != object.getClass()) return false;
+            Link link = (Link) object;
+            return Objects.equals(name, link.name) && Objects.equals(url, link.url);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, url);
         }
     }
 }
