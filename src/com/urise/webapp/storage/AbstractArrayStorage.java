@@ -47,13 +47,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void doDelete(Integer index) {
-        System.arraycopy(storage, index + 1, storage, index, size - index - 1);
-        storage[size] = null;
-        size--;
-    }
-
-    @Override
     protected Resume doGet(Integer index) {
         return storage[index];
     }
@@ -61,5 +54,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected abstract Integer findResumeSearchKey(String uuid);
 
     protected abstract void insertElement(Resume r, Integer index);
+
+    protected abstract void doDelete(Integer index);
 }
 

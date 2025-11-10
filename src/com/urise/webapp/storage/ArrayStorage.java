@@ -18,5 +18,12 @@ public class ArrayStorage extends AbstractArrayStorage {
     protected void insertElement(Resume r, Integer index) {
         storage[size] = r;
     }
+
+    @Override
+    protected void doDelete(Integer index) {
+        storage[index] = storage[size - 1];
+        storage[size - 1] = null;
+        size--;
+    }
 }
 
