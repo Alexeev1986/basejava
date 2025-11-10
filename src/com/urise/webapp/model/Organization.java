@@ -21,15 +21,14 @@ public class Organization {
     public Link getLink() {
         return link;
     }
-    public List<Position> getPeriods() {
-        return positions;
+    public List<Position> getOrganizations() {
+        return List.copyOf(positions);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String prefix = "-".repeat(25);
-
         sb.append(prefix).append(link).append("\n");
         sb.append(positions.toString());
         return sb.toString();

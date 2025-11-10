@@ -5,9 +5,6 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.AbstractArrayStorage;
 import com.urise.webapp.storage.Storage;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
-import java.util.Comparator;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,14 +12,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
-    }
-    @Test
-    void getAllSorted() {
-        Resume[] getAll = storage.getAllSorted().toArray(new Resume[0]);
-        Resume[] expected = {RESUME_1, RESUME_2, RESUME_3};
-        Arrays.sort(expected, Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
-        assertEquals(3, getAll.length);
-        assertArrayEquals(getAll, expected);
     }
 
     @Test

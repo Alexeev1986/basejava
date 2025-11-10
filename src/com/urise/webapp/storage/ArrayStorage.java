@@ -22,7 +22,6 @@ public class ArrayStorage extends AbstractArrayStorage {
     @Override
     protected void doBeforeDelete(Integer index) {
         storage[index] = storage[size - 1];
-        storage[size - 1] = null;
     }
 }
 
