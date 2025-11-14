@@ -9,12 +9,20 @@ public class ResumeTestData {
 
 
     public static void main(String[] args) {
-        Resume resume = new Resume("uuid7", "Григорий Кислин");
-        System.out.println(resume.getFullName() + ": " + resume.getUuid());
+        Resume resume = createResume("uuid7", "Григорий Кислицин");
+        printResume(resume);
+    }
+
+    public static Resume createResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
         initialContact(resume);
-        printContact(resume);
         initialSections(resume);
-        printSection(resume);
+        return resume;
+    }
+
+    public static void printResume(Resume r) {
+        printContact(r);
+        printSection(r);
     }
 
     private static void initialContact(Resume resume) {
