@@ -1,10 +1,11 @@
 package com.urise.webapp.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Serializable {
     private final Link link;
     private final List<Position> positions;
 
@@ -50,7 +51,7 @@ public class Organization {
         return Objects.hash(link, positions);
     }
 
-    public static class Link {
+    public static class Link implements Serializable{
         private final String name;
         private final String url;
 

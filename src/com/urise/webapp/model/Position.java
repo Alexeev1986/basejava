@@ -1,11 +1,12 @@
 package com.urise.webapp.model;
 
 
+import java.io.Serializable;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Position extends OrganizationsSection {
+public class Position extends OrganizationsSection implements Serializable {
     private final YearMonth startDate;
     private YearMonth endDate;
     private final String title;
