@@ -16,32 +16,18 @@ public class TestSaveAndOpenResume {
     }
 
     private static void saveResume(Resume r, File fileName) {
-        try {
-            FileOutputStream fos = new FileOutputStream(fileName);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(r);
-            oos.close();
         } catch (IOException e) {
             throw new StorageException("IO error", fileName.getName(), e);
         }
     }
 
     private static Resume openResume(File fileName) {
-        ObjectInputStream ois = null;
-        try {
-            FileInputStream fis = new FileInputStream(fileName);
-            ois = new ObjectInputStream(fis);
-            Resume resume = (Resume) ois.readObject();
-            return resume;
-
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))){
+            return (Resume) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new StorageException("IO error or ClassNotFoundException error", fileName.getName(), null);
-        } finally {
-            try {
-                ois.close();
-            } catch (IOException e) {
-                throw new StorageException("IO error", null);
-            }
         }
     }
 }
