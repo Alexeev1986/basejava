@@ -1,8 +1,6 @@
 package com.urise.webapp.model;
 
-import java.io.Serializable;
-
-public enum SectionType implements Serializable {
+public enum SectionType {
     PERSONAL("Личные качества"),
     OBJECTIVE("Позиция"),
     ACHIEVEMENT("Достижения"),
