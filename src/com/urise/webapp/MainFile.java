@@ -1,10 +1,16 @@
 package com.urise.webapp;
 
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ObjectStreamStorage;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class MainFile {
     public static void main(String[] args) {
-       /* File filePath = new File(".\\.gitignore");
+
+        File filePath = new File(".\\.gitignore");
         try {
             System.out.println(filePath.getCanonicalPath());
         } catch (IOException e) {
@@ -23,10 +29,14 @@ public class MainFile {
             System.out.println(fis.read());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
         File root = new File(".");
         printFolderStructure(root, 0);
+        File pathFile = new File("C:\\basejava\\storage");
+        ObjectStreamStorage oss = new ObjectStreamStorage(pathFile);
+        Resume resume = ResumeTestData.createResume("uuid", "Курочкин Евгений Николаевич");
+        oss.save(resume);
     }
 
     private static void printFolderStructure(File dir,int indent) {

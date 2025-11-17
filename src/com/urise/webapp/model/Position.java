@@ -1,12 +1,16 @@
 package com.urise.webapp.model;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Position extends OrganizationsSection implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final YearMonth startDate;
     private YearMonth endDate;
     private final String title;

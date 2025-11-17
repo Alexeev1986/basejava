@@ -1,11 +1,15 @@
 package com.urise.webapp.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganizationsSection extends Section implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final List<Organization> entries = new ArrayList<>();
 
     public void add(String nameOrg, String urlOrg, List<Position> positions) {
