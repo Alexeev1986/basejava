@@ -7,11 +7,15 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("C:\\basejava\\storage");
+
     protected Storage storage;
     protected static final String UUID_1 = "uuid1";
     protected static final String UUID_2 = "uuid2";
