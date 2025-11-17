@@ -1,6 +1,5 @@
-package com.urise.webapp.util;
+package com.urise.webapp;
 
-import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
