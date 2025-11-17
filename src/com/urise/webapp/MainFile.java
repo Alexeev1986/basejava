@@ -26,10 +26,10 @@ public class MainFile {
         }*/
 
         File root = new File(".");
-        listFilesRecurs(root, 0);
+        printFolderStructure(root, 0);
     }
 
-    private static void listFilesRecurs(File dir,int indent) {
+    private static void printFolderStructure(File dir,int indent) {
         if (!dir.exists() || !dir.isDirectory()) {
             System.out.println("Недопустимый каталог: " + dir.getAbsolutePath());
             return;
@@ -41,7 +41,7 @@ public class MainFile {
         for (File file : files) {
             if (file.isDirectory()) {
                 System.out.println(" ".repeat(indent) + "[Dir]" + file.getName());
-                listFilesRecurs(file, indent + 2);
+                printFolderStructure(file, indent + 2);
             } else {
                 System.out.println(" ".repeat(indent + 4) + file.getName());
             }
