@@ -2,26 +2,29 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.strategy.SerializerStrategy;
 
 import java.io.*;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private final Path directory;
+    private final SerializerStrategy serializerStrategy;
 
-    protected AbstractPathStorage(String dir) {
+    protected AbstractPathStorage(String dir, SerializerStrategy serializerStrategy) {
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + " is not directory or is not writable");
         }
+        this.serializerStrategy = serializerStrategy;
     }
 
     @Override
@@ -37,7 +40,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected void doUpdate(Resume r, Path path) {
         try (OutputStream os = Files.newOutputStream(path)) {
-            doWrite(r, new BufferedOutputStream(os));
+            serializerStrategy.doWrite(r, new BufferedOutputStream(os));
         } catch (IOException e) {
             throw new StorageException("Path write error", r.getUuid(), e);
         }
@@ -46,7 +49,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected void doSave(Resume r, Path path) {
         try (OutputStream os = Files.newOutputStream(path)) {
-            doWrite(r, new BufferedOutputStream(os));
+            serializerStrategy.doWrite(r, new BufferedOutputStream(os));
         } catch (IOException e) {
             throw new StorageException("Failed to create Path for resume storage" +
                     path, path.getFileName().toString(), e);
@@ -65,7 +68,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected Resume doGet(Path path) {
         try (InputStream is = Files.newInputStream(path)) {
-            return doRead(new BufferedInputStream(is));
+            return serializerStrategy.doRead(new BufferedInputStream(is));
         } catch (IOException e) {
             throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
@@ -73,17 +76,21 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> doGetAll() {
-        try (Stream<Path> paths = Files.list(directory)){
-            return paths.map(this::doGet).collect(Collectors.toList());
+        List<Resume> resumes = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
+            for (Path path : stream) {
+                resumes.add(doGet(path));
+            }
         } catch (IOException e) {
             throw new StorageException("Dir read error", e);
         }
+        return resumes;
     }
 
     @Override
     public void clear() {
-        try {
-            Files.list(directory).forEach(this::doDelete);
+        try (Stream<Path> files = Files.list(directory)) {
+            files.forEach(this::doDelete);
         } catch (IOException e) {
             throw new StorageException("Path delete error", e);
         }
@@ -91,15 +98,11 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        try (Stream<Path> paths = Files.list(directory)){
-            return (int) paths.count();
+        try (Stream<Path> files = Files.list(directory)) {
+            return (int) files.count();
         } catch (IOException e) {
             throw new StorageException("Dir read error", e);
         }
     }
-
-    protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
-
-    protected abstract Resume doRead(InputStream is) throws IOException;
 }
 
