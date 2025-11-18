@@ -1,7 +1,7 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.ObjectStreamStorage;
+import com.urise.webapp.storage.ObjectStreamFileStorage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +34,7 @@ public class MainFile {
         File root = new File(".");
         printFolderStructure(root, 0);
         File pathFile = new File("C:\\basejava\\storage");
-        ObjectStreamStorage oss = new ObjectStreamStorage(pathFile);
+        ObjectStreamFileStorage oss = new ObjectStreamFileStorage(pathFile);
         Resume resume = ResumeTestData.createResume("uuid", "Курочкин Евгений Николаевич");
         oss.save(resume);
     }

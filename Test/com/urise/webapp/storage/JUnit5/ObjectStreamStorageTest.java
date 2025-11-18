@@ -1,11 +1,11 @@
 package com.urise.webapp.storage.JUnit5;
 
-import com.urise.webapp.storage.ObjectStreamStorage;
+import com.urise.webapp.storage.ObjectStreamFileStorage;
 
 
 public class ObjectStreamStorageTest extends AbstractStorageTest {
 
     public ObjectStreamStorageTest() {
-        super(new ObjectStreamStorage(STORAGE_DIR));
+        super(new ObjectStreamFileStorage(STORAGE_DIR));
     }
 }
