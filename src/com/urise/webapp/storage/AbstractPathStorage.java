@@ -89,8 +89,10 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        try (Stream<Path> files = Files.list(directory)) {
-            files.forEach(this::doDelete);
+        try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)){
+            for (Path file : files) {
+                doDelete(file);
+            }
         } catch (IOException e) {
             throw new StorageException("Path delete error", e);
         }
