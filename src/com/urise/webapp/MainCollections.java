@@ -24,13 +24,7 @@ public class MainCollections {
         printList();
 
         System.out.println("Delete UUID_1");
-        Iterator<Resume> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            Resume r = iterator.next();
-            if (Objects.equals(r.getUuid(), UUID_1)) {
-                iterator.remove();
-            }
-        }
+        collection.removeIf(r -> Objects.equals(r.getUuid(), UUID_1));
         printList();
 
         Map<String, Resume> map = new HashMap<>();
@@ -48,7 +42,7 @@ public class MainCollections {
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());
         }
-        List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2,RESUME_3);
+        List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         //resumes.remove(1);
         printAnyList(resumes);
     }

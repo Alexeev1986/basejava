@@ -12,9 +12,9 @@ public class Position extends OrganizationsSection implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final YearMonth startDate;
-    private YearMonth endDate;
     private final String title;
     private final String description;
+    private YearMonth endDate;
 
     public Position(String startDate, String endDate, String title, String description) {
         this.startDate = Objects.requireNonNull(YearMonth.parse(startDate, DateTimeFormatter.ofPattern("MM/yyyy")),

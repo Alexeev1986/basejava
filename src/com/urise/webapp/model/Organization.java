@@ -29,6 +29,7 @@ public class Organization implements Serializable {
     public Link getLink() {
         return link;
     }
+
     public List<Position> getOrganizations() {
         return List.copyOf(positions);
     }
@@ -55,7 +56,7 @@ public class Organization implements Serializable {
         return Objects.hash(link, positions);
     }
 
-    public static class Link implements Serializable{
+    public static class Link implements Serializable {
         @Serial
         private static final long serialVersionUID = 1L;
 

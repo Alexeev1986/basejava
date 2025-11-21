@@ -11,12 +11,11 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File(".\\storage");
-
-    protected Storage storage;
     protected static final String UUID_1 = "uuid1";
     protected static final String UUID_2 = "uuid2";
     protected static final String UUID_3 = "uuid3";
@@ -27,6 +26,7 @@ public abstract class AbstractStorageTest {
     protected static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, "Полохов Алексей Владимирович");
     protected static final Resume RESUME_4 = ResumeTestData.createResume(UUID_4, "Петров Данила Васильевич");
     protected static final Resume RESUME_5 = ResumeTestData.createResume(UUID_5, "Самар Павел Вечиславович");
+    protected Storage storage;
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -65,7 +65,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     void getAllSorted() {
-        List<Resume> getAll =  storage.getAllSorted();
+        List<Resume> getAll = storage.getAllSorted();
         assertEquals(3, getAll.size());
         List<Resume> expected = List.of(RESUME_2, RESUME_1, RESUME_3);
         assertEquals(expected, getAll);

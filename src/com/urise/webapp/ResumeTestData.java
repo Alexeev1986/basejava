@@ -219,7 +219,7 @@ public class ResumeTestData {
                 "Инженер (программист Fortran, C)",
                 ""));
         education.add("Санкт-Петербургский национальный исследовательский университет информационных \n" +
-                        " ".repeat(35)  + "технологий,механики и оптики", "https://itmo.ru/", position);
+                " ".repeat(35) + "технологий,механики и оптики", "https://itmo.ru/", position);
 
 
         education.add("Заочная физико-техническая школа при МФТИ", "https://mipt.ru/",

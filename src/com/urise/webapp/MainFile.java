@@ -22,7 +22,7 @@ public class MainFile {
             }
         }
 
-        try (FileInputStream fis = new FileInputStream(filePath)){
+        try (FileInputStream fis = new FileInputStream(filePath)) {
             System.out.println(fis.read());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -31,7 +31,7 @@ public class MainFile {
         printFolderStructure(filePath, 0);
     }
 
-    private static void printFolderStructure(File dir,int indent) {
+    private static void printFolderStructure(File dir, int indent) {
         if (!dir.exists() || !dir.isDirectory()) {
             System.out.println("Недопустимый каталог: " + dir.getAbsolutePath());
             return;

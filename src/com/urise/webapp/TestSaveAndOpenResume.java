@@ -23,7 +23,7 @@ public class TestSaveAndOpenResume {
     }
 
     private static Resume openResume(File fileName) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             return (Resume) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new StorageException("IO error or ClassNotFoundException error", fileName.getName(), null);

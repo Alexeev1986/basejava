@@ -89,7 +89,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)){
+        try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
             for (Path file : files) {
                 doDelete(file);
             }
