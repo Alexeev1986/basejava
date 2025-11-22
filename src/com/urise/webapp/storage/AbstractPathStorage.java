@@ -51,8 +51,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try (OutputStream os = Files.newOutputStream(path)) {
             serializerStrategy.doWrite(r, new BufferedOutputStream(os));
         } catch (IOException e) {
-            throw new StorageException("Failed to create Path for resume storage" +
-                    path, path.getFileName().toString(), e);
+            throw new StorageException("Failed to create Path for resume storage" + path, getFileName(path), e);
         }
     }
 
@@ -61,7 +60,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             Files.delete(path);
         } catch (IOException e) {
-            throw new StorageException("Path delete error", path.getFileName().toString(), e);
+            throw new StorageException("Path delete error", getFileName(path), e);
         }
     }
 
@@ -70,7 +69,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try (InputStream is = Files.newInputStream(path)) {
             return serializerStrategy.doRead(new BufferedInputStream(is));
         } catch (IOException e) {
-            throw new StorageException("Path read error", path.getFileName().toString(), e);
+            throw new StorageException("Path read error", getFileName(path), e);
         }
     }
 
@@ -82,7 +81,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
                 resumes.add(doGet(path));
             }
         } catch (IOException e) {
-            throw new StorageException("Dir read error", e);
+            throw new StorageException("Directory read error", e);
         }
         return resumes;
     }
@@ -90,9 +89,10 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     public void clear() {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
-            for (Path file : files) {
+            files.forEach(this::doDelete);
+            /*for (Path file : files) {
                 doDelete(file);
-            }
+            }*/
         } catch (IOException e) {
             throw new StorageException("Path delete error", e);
         }
@@ -103,8 +103,12 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try (Stream<Path> files = Files.list(directory)) {
             return (int) files.count();
         } catch (IOException e) {
-            throw new StorageException("Dir read error", e);
+            throw new StorageException("Directory read error", e);
         }
+    }
+
+    private String getFileName(Path path) {
+        return path.getFileName().toString();
     }
 }
 

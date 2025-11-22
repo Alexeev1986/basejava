@@ -6,6 +6,7 @@ import com.urise.webapp.storage.strategy.SerializerStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,9 +88,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     public void clear() {
         File[] files = directory.listFiles();
         if (files != null) {
-            for (File file : files) {
+            Arrays.stream(files).toList().forEach(this::doDelete);
+            /*for (File file : files) {
                 doDelete(file);
-            }
+            }*/
         }
     }
 
