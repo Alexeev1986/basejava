@@ -20,19 +20,5 @@ public class MainReflection {
         Method toStringMethod = r.getClass().getMethod("toString");
         Object runStrMet = toStringMethod.invoke(r);
         System.out.println(runStrMet);
-
-       /* String str = " ";
-        Field[] fields = str.getClass().getDeclaredFields();
-        System.out.println("Fields from String:");
-        for (Field field2 : fields) {
-            System.out.println(field2);
-        }
-        Method[] methods = str.getClass().getMethods();
-        System.out.println("Methods from String:");
-        for (Method method : methods){
-            System.out.println(method);
-        }
-        Object stringHashCose = methods[3].invoke("WatsUP!");
-        System.out.println(stringHashCose);*/
     }
 }

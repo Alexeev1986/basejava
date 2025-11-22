@@ -5,10 +5,10 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.strategy.SerializerStrategy;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private final File directory;
@@ -48,7 +48,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(Resume r, File file) {
         try {
-            file.createNewFile();
             serializerStrategy.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Failed to create file for resume storage", file.getName(), e);
@@ -73,35 +72,25 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory read error");
-        }
-        List<Resume> list = new ArrayList<>();
-        for (File file : files) {
-            list.add(doGet(file));
-        }
-        return list;
+        return Arrays.stream(Objects.requireNonNull(getFilesArr())).map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            Arrays.stream(files).toList().forEach(this::doDelete);
-            /*for (File file : files) {
-                doDelete(file);
-            }*/
-        }
+        Arrays.stream(Objects.requireNonNull(getFilesArr())).forEach(this::doDelete);
     }
 
     @Override
     public int size() {
-        File[] files = directory.listFiles();
-        if (files == null) {
+        return Objects.requireNonNull(getFilesArr()).length;
+    }
+
+    private File[] getFilesArr() {
+        if (directory.listFiles() == null) {
             throw new StorageException("Read directory error");
         }
-        return files.length;
+        return directory.listFiles();
+
     }
 }
 

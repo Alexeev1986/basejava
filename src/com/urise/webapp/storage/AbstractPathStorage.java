@@ -5,13 +5,12 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.strategy.SerializerStrategy;
 
 import java.io.*;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
@@ -75,40 +74,30 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> doGetAll() {
-        List<Resume> resumes = new ArrayList<>();
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
-            for (Path path : stream) {
-                resumes.add(doGet(path));
-            }
-        } catch (IOException e) {
-            throw new StorageException("Directory read error", e);
-        }
-        return resumes;
+        return getFilesList().map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
     public void clear() {
-        try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
-            files.forEach(this::doDelete);
-            /*for (Path file : files) {
-                doDelete(file);
-            }*/
-        } catch (IOException e) {
-            throw new StorageException("Path delete error", e);
-        }
+        getFilesList().forEach(this::doDelete);
     }
 
     @Override
     public int size() {
-        try (Stream<Path> files = Files.list(directory)) {
-            return (int) files.count();
-        } catch (IOException e) {
-            throw new StorageException("Directory read error", e);
-        }
+        return (int) getFilesList().count();
     }
 
     private String getFileName(Path path) {
         return path.getFileName().toString();
+    }
+
+    private Stream<Path> getFilesList() {
+        try {
+            return Files.list(directory);
+        } catch (IOException e) {
+            throw new StorageException("Directory read error", e);
+        }
+
     }
 }
 
