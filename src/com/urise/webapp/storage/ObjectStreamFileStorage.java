@@ -4,7 +4,7 @@ import com.urise.webapp.storage.strategy.StreamSerializer;
 
 import java.io.File;
 
-public class ObjectStreamFileStorage extends AbstractFileStorage {
+public class ObjectStreamFileStorage extends FileStorage {
 
     public ObjectStreamFileStorage(File directory, StreamSerializer streamSerializer) {
         super(directory, streamSerializer);
