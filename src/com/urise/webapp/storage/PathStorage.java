@@ -17,13 +17,14 @@ public class PathStorage extends AbstractStorage<Path> {
     private final Path directory;
     private final StreamSerializer streamSerializer;
 
-    protected PathStorage(String dir, StreamSerializer streamSerializer) {
-        directory = Paths.get(dir);
+    public PathStorage(String directory, StreamSerializer streamSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
-        if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
-            throw new IllegalArgumentException(dir + " is not directory or is not writable");
-        }
+
+        this.directory = Paths.get(directory);
         this.streamSerializer = streamSerializer;
+        if (!Files.isDirectory(this.directory) || !Files.isWritable(this.directory)) {
+            throw new IllegalArgumentException(directory + " is not directory or is not writable");
+        }
     }
 
     @Override

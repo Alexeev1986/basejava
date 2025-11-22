@@ -10,8 +10,8 @@ import org.junit.platform.suite.api.Suite;
         MapUuidStorageTest.class,
         MapResumeStorageTest.class,
         MapEntryStorageTest.class,
-        ObjectStreamFileStorageTest.class,
-        ObjectStreamPathStorageTest.class
+        ObjectFileStorageTest.class,
+        ObjectPathStorageTest.class
 })
 public class AllStorageTestsSuite {
 }
