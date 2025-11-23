@@ -1,65 +1,53 @@
 package com.urise.webapp.model;
 
 
+import com.urise.webapp.util.YearMonthAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Position extends OrganizationsSection implements Serializable {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Position implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final YearMonth startDate;
-    private final String title;
-    private final String description;
+    @XmlJavaTypeAdapter(YearMonthAdapter.class)
+    private YearMonth startDate;
+
+    @XmlJavaTypeAdapter(YearMonthAdapter.class)
     private YearMonth endDate;
 
-    public Position(String startDate, String endDate, String title, String description) {
-        this.startDate = Objects.requireNonNull(YearMonth.parse(startDate, DateTimeFormatter.ofPattern("MM/yyyy")),
-                "start date must not be null");
-        if (endDate != null && !endDate.isEmpty()) {
-            this.endDate = YearMonth.parse(endDate, DateTimeFormatter.ofPattern("MM/yyyy"));
-        }
+    private String title;
+    private String description;
 
+    public Position() {}
+
+    public Position(YearMonth startDate, YearMonth endDate, String title, String description) {
+        this.startDate = Objects.requireNonNull(startDate, "start date must not be null");
+        this.endDate = endDate;
         this.title = Objects.requireNonNull(title, "organization must not be null");
         this.description = description != null ? description : "";
     }
 
-    public YearMonth getStartDate() {
-        return startDate;
-    }
-
-    public YearMonth getEndDate() {
-        return endDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-
     @Override
     public String toString() {
-        return startDate + " - " +
-                (endDate != null ? endDate : "настоящее время") + " : " +
-                title + "\n" +
-                description.indent(22) + "\n";
+        return startDate + " - " + (endDate != null ? endDate : "настоящее время") + " : " + title + "\n" + description.indent(22) + "\n";
     }
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
         Position position = (Position) object;
-        return Objects.equals(startDate, position.startDate) && Objects.equals(endDate, position.endDate) &&
-                Objects.equals(title, position.title) && Objects.equals(description, position.description);
+        return Objects.equals(startDate, position.startDate) &&
+                Objects.equals(endDate, position.endDate) &&
+                Objects.equals(title, position.title) &&
+                Objects.equals(description, position.description);
     }
 
     @Override

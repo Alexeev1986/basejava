@@ -1,17 +1,24 @@
 package com.urise.webapp.model;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final Link link;
-    private final List<Position> positions;
+    private Link link;
+    private List<Position> positions;
+
+    public Organization() {
+    }
 
     public Organization(String name, String url, List<Position> positions) {
         Objects.requireNonNull(name, "neme must not be null");
@@ -24,14 +31,6 @@ public class Organization implements Serializable {
         this.link = new Link(name, url);
         this.positions = Collections.singletonList(position);
 
-    }
-
-    public Link getLink() {
-        return link;
-    }
-
-    public List<Position> getOrganizations() {
-        return List.copyOf(positions);
     }
 
     @Override
@@ -56,24 +55,20 @@ public class Organization implements Serializable {
         return Objects.hash(link, positions);
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Link implements Serializable {
         @Serial
         private static final long serialVersionUID = 1L;
 
-        private final String name;
-        private final String url;
+        private String name;
+        private String url;
+
+        public Link() {
+        }
 
         public Link(String name, String url) {
             this.name = name;
             this.url = url;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getUrl() {
-            return url;
         }
 
         @Override
