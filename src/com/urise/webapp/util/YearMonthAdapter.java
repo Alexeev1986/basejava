@@ -11,17 +11,11 @@ public class YearMonthAdapter extends XmlAdapter<String, YearMonth> {
 
     @Override
     public YearMonth unmarshal(String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
         return YearMonth.parse(value, FORMATTER);
     }
 
     @Override
     public String marshal(YearMonth value) {
-        if (value == null) {
-            return null;
-        }
         return value.format(FORMATTER);
     }
 }
