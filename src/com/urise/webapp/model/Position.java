@@ -1,36 +1,52 @@
 package com.urise.webapp.model;
 
 
-import com.urise.webapp.util.YearMonthAdapter;
+import com.urise.webapp.util.LocalDateAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.YearMonth;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Objects;
+
+import static com.urise.webapp.util.DateUtil.NOW;
+import static com.urise.webapp.util.DateUtil.of;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Position implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @XmlJavaTypeAdapter(YearMonthAdapter.class)
-    private YearMonth startDate;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate startDate;
 
-    @XmlJavaTypeAdapter(YearMonthAdapter.class)
-    private YearMonth endDate;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate endDate;
 
     private String title;
     private String description;
 
-    public Position() {}
+    public Position() {
+    }
 
-    public Position(YearMonth startDate, YearMonth endDate, String title, String description) {
-        this.startDate = Objects.requireNonNull(startDate, "start date must not be null");
+    public Position(int startYear, Month startMonth, String title, String description) {
+        this(of(startYear, startMonth), NOW, title, description);
+    }
+
+    public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+        this(of(startYear, startMonth), of(endYear, endMonth), title, description);
+    }
+
+    public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
+        Objects.requireNonNull(startDate, "startDate must not be null");
+        //Objects.requireNonNull(endDate, "endDate must not be null");
+        Objects.requireNonNull(title, "title must not be null");
+        this.startDate = startDate;
         this.endDate = endDate;
-        this.title = Objects.requireNonNull(title, "organization must not be null");
+        this.title = title;
         this.description = description != null ? description : "";
     }
 
