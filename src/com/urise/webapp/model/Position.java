@@ -1,7 +1,7 @@
 package com.urise.webapp.model;
 
 
-import com.urise.webapp.util.LocalDateAdapter;
+import com.urise.webapp.util.LocalDateXmlAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -20,10 +20,10 @@ public class Position implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     private LocalDate startDate;
 
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     private LocalDate endDate;
 
     private String title;
