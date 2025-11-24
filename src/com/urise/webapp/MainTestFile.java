@@ -8,7 +8,7 @@ import com.urise.webapp.storage.strategy.DataStreamSerializer;
 import java.io.File;
 
 public class MainTestFile {
-    private static final File directory =  new File(".\\storage");
+    private static final File directory = new File(".\\storage");
     private static final Storage storage = new FileStorage(directory, new DataStreamSerializer());
 
     public static void main(String[] args) {

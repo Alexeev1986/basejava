@@ -20,14 +20,6 @@ public class Organization implements Serializable {
     public Organization() {
     }
 
-    public List<Position> getPositions() {
-        return positions;
-    }
-
-    public Link getLink() {
-        return link;
-    }
-
     public Organization(Link link, List<Position> positions) {
         Objects.requireNonNull(link.getName(), "name must not be null");
         this.link = new Link(link.getName(), link.getUrl());
@@ -51,6 +43,14 @@ public class Organization implements Serializable {
         this.link = new Link(name, url);
         this.positions = Collections.singletonList(position);
 
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public Link getLink() {
+        return link;
     }
 
     @Override
