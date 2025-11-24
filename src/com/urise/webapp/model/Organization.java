@@ -20,14 +20,34 @@ public class Organization implements Serializable {
     public Organization() {
     }
 
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public Link getLink() {
+        return link;
+    }
+
+    public Organization(Link link, List<Position> positions) {
+        Objects.requireNonNull(link.getName(), "name must not be null");
+        this.link = new Link(link.getName(), link.getUrl());
+        this.positions = List.copyOf(positions);
+    }
+
+    public Organization(Link link, Position position) {
+        Objects.requireNonNull(link.getName(), "name must not be null");
+        this.link = new Link(link.getName(), link.getUrl());
+        this.positions = Collections.singletonList(position);
+    }
+
     public Organization(String name, String url, List<Position> positions) {
-        Objects.requireNonNull(name, "neme must not be null");
+        Objects.requireNonNull(name, "name must not be null");
         this.link = new Link(name, url);
         this.positions = List.copyOf(positions);
     }
 
     public Organization(String name, String url, Position position) {
-        Objects.requireNonNull(name, "neme must not be null");
+        Objects.requireNonNull(name, "name must not be null");
         this.link = new Link(name, url);
         this.positions = Collections.singletonList(position);
 
@@ -69,6 +89,14 @@ public class Organization implements Serializable {
         public Link(String name, String url) {
             this.name = name;
             this.url = url;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getUrl() {
+            return url;
         }
 
         @Override

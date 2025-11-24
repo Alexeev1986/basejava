@@ -117,8 +117,8 @@ public class ResumeTestData {
                 JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer""");
         qualifications.add("""
                 Отличное знание и опыт применения концепций ООП, SOA,
-                шаблонов проектирования, архитектурных шаблонов, UML, функционального программирования");
-                qualifications.add("Родной русский, английский "upper intermediate" .""");
+                шаблонов проектирования, архитектурных шаблонов, UML, функционального программирования""");
+        qualifications.add("Родной русский, английский \"upper intermediate\" .");
         return qualifications;
     }
 

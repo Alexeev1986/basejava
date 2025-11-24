@@ -18,6 +18,10 @@ public class ListSection extends Section implements Serializable {
         this.items = items;
     }
 
+    public List<String> getItems() {
+        return items;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

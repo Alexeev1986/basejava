@@ -14,23 +14,34 @@ public class OrganizationsSection extends Section implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final List<Organization> entries = new ArrayList<>();
+    private final List<Organization> organizations;
+
 
     public OrganizationsSection() {
+        this.organizations = new ArrayList<>();
+    }
+
+    public OrganizationsSection(List<Organization> organizations) {
+        Objects.requireNonNull(organizations, "organizations must not be null");
+        this.organizations = List.copyOf(organizations);
     }
 
     public void add(String nameOrg, String urlOrg, List<Position> positions) {
-        entries.add(new Organization(nameOrg, urlOrg, positions));
+        organizations.add(new Organization(nameOrg, urlOrg, positions));
     }
 
     public void add(String nameOrg, String urlOrg, Position position) {
-        entries.add(new Organization(nameOrg, urlOrg, position));
+        organizations.add(new Organization(nameOrg, urlOrg, position));
+    }
+
+    public List<Organization> getOrganizations() {
+        return List.copyOf(organizations);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Organization entry : entries) {
+        for (Organization entry : organizations) {
             sb.append(entry.toString()).append("\n");
         }
         return sb.toString().trim();
@@ -41,11 +52,11 @@ public class OrganizationsSection extends Section implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         OrganizationsSection that = (OrganizationsSection) object;
-        return Objects.equals(entries, that.entries);
+        return Objects.equals(organizations, that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(entries);
+        return Objects.hashCode(organizations);
     }
 }

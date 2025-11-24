@@ -50,6 +50,22 @@ public class Position implements Serializable {
         this.description = description != null ? description : "";
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return startDate + " - " + (endDate != null ? endDate : "настоящее время") + " : " + title + "\n" + description.indent(22) + "\n";

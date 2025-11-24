@@ -67,6 +67,14 @@ public class Resume extends Section implements Comparable<Resume>, Serializable 
         return fullName;
     }
 
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
