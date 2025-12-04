@@ -2,7 +2,6 @@ package com.urise.webapp.storage.strategy;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.*;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class DataStreamSerializer implements StreamSerializer {
-
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {
         try (DataOutputStream dos = new DataOutputStream(os)) {
@@ -35,7 +33,7 @@ public class DataStreamSerializer implements StreamSerializer {
         });
     }
 
-    private void writeSections(DataOutputStream dos, Map<SectionType, Section> sections) throws IOException {
+    private void writeSections(DataOutputStream dos, Map<SectionType, AbstractSection> sections) throws IOException {
         dos.writeInt(sections.size());
         sections.forEach((type, section) -> {
             try {
@@ -47,11 +45,13 @@ public class DataStreamSerializer implements StreamSerializer {
         });
     }
 
-    private void writeSectionContent(DataOutputStream dos, SectionType type, Section section) throws IOException {
+    private void writeSectionContent(DataOutputStream dos,
+                                     SectionType type, AbstractSection section) throws IOException {
         switch (type) {
             case PERSONAL, OBJECTIVE -> dos.writeUTF(((TextSection) section).getContent());
             case ACHIEVEMENT, QUALIFICATIONS -> writeListSection(dos, (ListSection) section);
             case EXPERIENCE, EDUCATION -> writeOrganizationsSection(dos, (OrganizationsSection) section);
+            default -> throw new StorageException("Error unresolved section.");
         }
     }
 
@@ -65,7 +65,8 @@ public class DataStreamSerializer implements StreamSerializer {
         });
     }
 
-    private void writeOrganizationsSection(DataOutputStream dos, OrganizationsSection section) throws IOException {
+    private void writeOrganizationsSection(DataOutputStream dos,
+                                           OrganizationsSection section) throws IOException {
         writeCollection(dos, section.getOrganizations(), (stream, organization) -> {
             try {
                 writeOrganization(stream, organization);
@@ -80,8 +81,7 @@ public class DataStreamSerializer implements StreamSerializer {
         Organization.Link link = organization.getLink();
         dos.writeUTF(link.getName());
         dos.writeUTF(link.getUrl());
-        writeCollection(dos,organization.getPositions(), this::writePositions);
-
+        writeCollection(dos, organization.getPositions(), this::writePositions);
     }
 
     private void writePositions(DataOutputStream dos, Position position) {
@@ -127,12 +127,12 @@ public class DataStreamSerializer implements StreamSerializer {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
             SectionType sectionType = SectionType.valueOf(dis.readUTF());
-            Section section = readSectionContent(dis, sectionType);
+            AbstractSection section = readSectionContent(dis, sectionType);
             resume.setSection(sectionType, section);
         }
     }
 
-    private Section readSectionContent(DataInputStream dis, SectionType sectionType) throws IOException {
+    private AbstractSection readSectionContent(DataInputStream dis, SectionType sectionType) throws IOException {
         return switch (sectionType) {
             case PERSONAL, OBJECTIVE -> new TextSection(dis.readUTF());
             case ACHIEVEMENT, QUALIFICATIONS -> readListSection(dis);
@@ -141,7 +141,6 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private ListSection readListSection(DataInputStream dis) throws IOException {
-
         List<String> items = readCollection(dis, stream -> {
             try {
                 return dis.readUTF();
@@ -187,13 +186,13 @@ public class DataStreamSerializer implements StreamSerializer {
         return new Position(startDate, endDate, title, description);
     }
 
-    private <T> List<T> readCollection(DataInputStream dis, Function<DataInputStream, T> function) throws IOException {
-        int count = dis.readInt();
-        List<T> items = new ArrayList<>(count);
-        for (int i = 0; i < count; i++) {
+    private <T> List<T> readCollection(DataInputStream dis,
+                                       Function<DataInputStream, T> function) throws IOException {
+        int size = dis.readInt();
+        List<T> items = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
             items.add(function.apply(dis));
         }
         return items;
     }
-
 }

@@ -13,11 +13,11 @@ import java.util.UUID;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Resume extends Section implements Comparable<Resume>, Serializable {
+public class Resume extends AbstractSection implements Comparable<Resume>, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
     private String uuid;
     private String fullName;
 
@@ -47,11 +47,11 @@ public class Resume extends Section implements Comparable<Resume>, Serializable 
         }
     }
 
-    public Section getSections(SectionType type) {
+    public AbstractSection getSections(SectionType type) {
         return sections.get(type);
     }
 
-    public void setSection(SectionType type, Section section) {
+    public void setSection(SectionType type, AbstractSection section) {
         if (section == null) {
             sections.remove(type);
         } else {
@@ -71,7 +71,7 @@ public class Resume extends Section implements Comparable<Resume>, Serializable 
         return contacts;
     }
 
-    public Map<SectionType, Section> getSections() {
+    public Map<SectionType, AbstractSection> getSections() {
         return sections;
     }
 
