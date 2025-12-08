@@ -102,6 +102,10 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
+    private interface ElementWriter<T> {
+        void write(T t) throws IOException;
+    }
+
     @Override
     public Resume doRead(InputStream is) throws IOException {
         try (DataInputStream dis = new DataInputStream(is)) {
