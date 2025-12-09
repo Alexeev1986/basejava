@@ -14,11 +14,9 @@ public class Stream8 {
     }
 
     private static List<Integer> oddOrEven1(List<Integer> integers) {
-        int sum = integers.stream()
-                .mapToInt(Integer::intValue).sum();
-        boolean isEven = (sum) % 2 == 0;
+        int sum = (integers.stream().mapToInt(Integer::intValue).sum()) % 2;
         return integers.stream()
-                .filter(n -> (isEven) ? (n % 2 == 0) : (n % 2 != 0))
+                .filter(n -> (sum == 0) == (n % 2 == 0))
                 .collect(Collectors.toList());
     }
 
