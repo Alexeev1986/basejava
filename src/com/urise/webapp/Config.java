@@ -10,7 +10,6 @@ public class Config {
     protected static final File PROPS = new File("config\\resumes.properties");
     private static final Config INSTANCE = new Config();
 
-    private Properties props = new Properties();
     private final File storageDir;
     private final String dbUrl;
     private final String dbUser;
@@ -21,6 +20,7 @@ public class Config {
     }
 
     private Config() {
+        Properties props = new Properties();
         try (InputStream is = new FileInputStream(PROPS)) {
             props.load(is);
             storageDir = new File(props.getProperty("storage.dir"));
