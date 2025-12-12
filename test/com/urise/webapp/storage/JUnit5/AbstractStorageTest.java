@@ -1,4 +1,4 @@
-package com.urise.webapp.storage.JUnit5;
+package urise.webapp.storage.JUnit5;
 
 import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistResumeException;
