@@ -1,7 +1,6 @@
 package urise.webapp.storage.JUnit5;
 
 import com.urise.webapp.Config;
-import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistResumeException;
 import com.urise.webapp.exception.NotExistResumeException;
 import com.urise.webapp.model.Resume;
@@ -23,11 +22,11 @@ public abstract class AbstractStorageTest {
     protected static final String UUID_3 = "uuid3";
     protected static final String UUID_4 = "uuid4";
     protected static final String UUID_5 = "uuid5";
-    protected static final Resume RESUME_1 = ResumeTestData.createResume(UUID_1, "Курочкин Евгений Николаевич");
-    protected static final Resume RESUME_2 = ResumeTestData.createResume(UUID_2, "Иванов Никита Николаевич");
-    protected static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, "Полохов Алексей Владимирович");
-    protected static final Resume RESUME_4 = ResumeTestData.createResume(UUID_4, "Петров Данила Васильевич");
-    protected static final Resume RESUME_5 = ResumeTestData.createResume(UUID_5, "Самар Павел Вечиславович");
+    protected static final Resume RESUME_1 = new Resume(UUID_1, "Курочкин Евгений Николаевич");
+    protected static final Resume RESUME_2 = new Resume(UUID_2, "Иванов Никита Николаевич");
+    protected static final Resume RESUME_3 = new Resume(UUID_3, "Полохов Алексей Владимирович");
+    protected static final Resume RESUME_4 = new Resume(UUID_4, "Петров Данила Васильевич");
+    protected static final Resume RESUME_5 = new Resume(UUID_5, "Самар Павел Вечиславович");
     protected Storage storage;
 
     protected AbstractStorageTest(Storage storage) {

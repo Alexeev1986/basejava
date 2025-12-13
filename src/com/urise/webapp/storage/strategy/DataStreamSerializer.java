@@ -1,8 +1,20 @@
 package com.urise.webapp.storage.strategy;
 
 import com.urise.webapp.exception.StorageException;
-import com.urise.webapp.model.*;
-import java.io.*;
+import com.urise.webapp.model.AbstractSection;
+import com.urise.webapp.model.ContactType;
+import com.urise.webapp.model.ListSection;
+import com.urise.webapp.model.Organization;
+import com.urise.webapp.model.OrganizationsSection;
+import com.urise.webapp.model.Position;
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.SectionType;
+import com.urise.webapp.model.TextSection;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +45,8 @@ public class DataStreamSerializer implements StreamSerializer {
         });
     }
 
-    private void writeSections(DataOutputStream dos, Map<SectionType, AbstractSection> sections) throws IOException {
+    private void writeSections(DataOutputStream dos,
+                               Map<SectionType, AbstractSection> sections) throws IOException {
         dos.writeInt(sections.size());
         sections.forEach((type, section) -> {
             try {
@@ -77,7 +90,6 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void writeOrganization(DataOutputStream dos, Organization organization) throws IOException {
-        List<Position> positions = organization.getPositions();
         Organization.Link link = organization.getLink();
         dos.writeUTF(link.getName());
         dos.writeUTF(link.getUrl());
@@ -95,15 +107,12 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
-    private <T> void writeCollection(DataOutputStream dos, List<T> items, BiConsumer<DataOutputStream, T> biCons) throws IOException {
+    private <T> void writeCollection(DataOutputStream dos, List<T> items,
+                                     BiConsumer<DataOutputStream, T> biCons) throws IOException {
         dos.writeInt(items.size());
         for (T item : items) {
             biCons.accept(dos, item);
         }
-    }
-
-    private interface ElementWriter<T> {
-        void write(T t) throws IOException;
     }
 
     @Override
@@ -136,7 +145,8 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
-    private AbstractSection readSectionContent(DataInputStream dis, SectionType sectionType) throws IOException {
+    private AbstractSection readSectionContent(DataInputStream dis,
+                                               SectionType sectionType) throws IOException {
         return switch (sectionType) {
             case PERSONAL, OBJECTIVE -> new TextSection(dis.readUTF());
             case ACHIEVEMENT, QUALIFICATIONS -> readListSection(dis);
@@ -147,7 +157,7 @@ public class DataStreamSerializer implements StreamSerializer {
     private ListSection readListSection(DataInputStream dis) throws IOException {
         List<String> items = readCollection(dis, stream -> {
             try {
-                return dis.readUTF();
+                return stream.readUTF();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -158,7 +168,7 @@ public class DataStreamSerializer implements StreamSerializer {
     private OrganizationsSection readOrganizationsSection(DataInputStream dis) throws IOException {
         List<Organization> organizations = readCollection(dis, stream -> {
             try {
-                return readOrganization(dis);
+                return readOrganization(stream);
             } catch (IOException e) {
                 throw new StorageException("Read organization error", e);
             }
