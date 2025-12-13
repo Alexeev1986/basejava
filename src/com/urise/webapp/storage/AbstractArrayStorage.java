@@ -2,12 +2,10 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
-
     public static final int STORAGE_LIMIT = 10_000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -57,7 +55,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         storage[size - 1] = null;
         size--;
     }
-
 
     protected abstract Integer findResumeSearchKey(String uuid);
 

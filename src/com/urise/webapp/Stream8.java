@@ -11,11 +11,10 @@ public class Stream8 {
         int[] numbers = {1, 2, 1, 3, 5, 5, 7, 9, 8, 4, 2, 2, 6};
         System.out.println("Original array: " + Arrays.toString(numbers));
         System.out.println("minValue: " + minValue(numbers));
-        List<Integer> numbersList = Optional.ofNullable(numbers)
+        List<Integer> numbersList = Optional.of(numbers)
                 .map(numb -> Arrays.stream(numb).boxed().toList())
                 .orElse(new ArrayList<>());
         System.out.println("oddOrEven: " + oddOrEven(numbersList));
-
     }
 
     private static int minValue(int[] values) {

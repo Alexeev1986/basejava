@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +35,6 @@ public class MapUuidStorage extends AbstractStorage<String> {
     protected void doUpdate(Resume r, String uuid) {
         map.put(uuid, r);
     }
-
 
     @Override
     protected void doSave(Resume r, String uuid) {

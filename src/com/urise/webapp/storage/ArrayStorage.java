@@ -3,7 +3,6 @@ package com.urise.webapp.storage;
 import com.urise.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
-
     @Override
     protected Integer findResumeSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {

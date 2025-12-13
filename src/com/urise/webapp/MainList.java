@@ -3,16 +3,11 @@ package com.urise.webapp;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ListStorage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-/**
- * Interactive test for com.urise.webapp.storage.ArrayStorage implementation
- * (just run, no need to understand)
- */
 public class MainList {
     private static final ListStorage LIST_STORAGE = new ListStorage();
 
@@ -20,7 +15,8 @@ public class MainList {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | size | save fullName | update uuid fullName| " + "delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | size |" +
+                    " save fullName | update uuid fullName| " + "delete uuid | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 3) {
                 System.out.println("Неверная команда.");

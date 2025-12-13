@@ -3,8 +3,11 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.strategy.StreamSerializer;
-
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,7 +54,8 @@ public class PathStorage extends AbstractStorage<Path> {
         try (OutputStream os = Files.newOutputStream(path)) {
             streamSerializer.doWrite(r, new BufferedOutputStream(os));
         } catch (IOException e) {
-            throw new StorageException("Failed to create Path for resume storage" + path, getFileName(path), e);
+            throw new StorageException("Failed to create Path for resume storage" +
+                    path, getFileName(path), e);
         }
     }
 
@@ -98,7 +102,6 @@ public class PathStorage extends AbstractStorage<Path> {
         } catch (IOException e) {
             throw new StorageException("Directory read error", e);
         }
-
     }
 }
 

@@ -1,11 +1,9 @@
 package com.urise.webapp.model;
 
-
 import com.urise.webapp.util.LocalDateXmlAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -36,13 +34,13 @@ public class Position implements Serializable {
         this(of(startYear, startMonth), NOW, title, description);
     }
 
-    public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+    public Position(int startYear, Month startMonth, int endYear,
+                    Month endMonth, String title, String description) {
         this(of(startYear, startMonth), of(endYear, endMonth), title, description);
     }
 
     public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
         Objects.requireNonNull(startDate, "startDate must not be null");
-        //Objects.requireNonNull(endDate, "endDate must not be null");
         Objects.requireNonNull(title, "title must not be null");
         this.startDate = startDate;
         this.endDate = endDate;
@@ -68,7 +66,8 @@ public class Position implements Serializable {
 
     @Override
     public String toString() {
-        return startDate + " - " + (endDate != null ? endDate : "настоящее время") + " : " + title + "\n" + description.indent(22) + "\n";
+        return startDate + " - " + (endDate != null ? endDate : "настоящее время") +
+                " : " + title + "\n" + description.indent(22) + "\n";
     }
 
     @Override

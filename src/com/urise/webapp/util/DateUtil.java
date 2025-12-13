@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class DateUtil {
-
     public static final LocalDate NOW = LocalDate.now();
 
     public static LocalDate of(int year, Month month) {

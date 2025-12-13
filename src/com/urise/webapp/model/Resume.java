@@ -3,7 +3,6 @@ package com.urise.webapp.model;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.EnumMap;
@@ -39,16 +38,16 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
         return contacts.get(type);
     }
 
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
     public void setContact(ContactType type, String value) {
         if (value == null || value.isBlank()) {
             contacts.remove(type);
         } else {
             contacts.put(type, value.trim());
         }
-    }
-
-    public AbstractSection getSections(SectionType type) {
-        return sections.get(type);
     }
 
     public void setSection(SectionType type, AbstractSection section) {
@@ -67,8 +66,8 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
         return fullName;
     }
 
-    public Map<ContactType, String> getContacts() {
-        return contacts;
+    public AbstractSection getSections(SectionType type) {
+        return sections.get(type);
     }
 
     public Map<SectionType, AbstractSection> getSections() {

@@ -1,19 +1,19 @@
 package com.urise.webapp.util;
 
 public class LazySingletonMultiThread {
-    private static volatile LazySingletonMultiThread INSTANCE;
+    private static volatile LazySingletonMultiThread instance;
 
     private LazySingletonMultiThread() {
     }
 
     public static LazySingletonMultiThread getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (LazySingletonMultiThread.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new LazySingletonMultiThread();
+                if (instance == null) {
+                    instance = new LazySingletonMultiThread();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 }

@@ -1,14 +1,17 @@
 package com.urise.webapp;
 
-import com.urise.webapp.model.*;
-
+import com.urise.webapp.model.ContactType;
+import com.urise.webapp.model.ListSection;
+import com.urise.webapp.model.OrganizationsSection;
+import com.urise.webapp.model.Position;
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.SectionType;
+import com.urise.webapp.model.TextSection;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeTestData {
-
-
     public static void main(String[] args) {
         Resume resume = createResume("uuid7", "Григорий Кислицин");
         printResume(resume);
@@ -49,8 +52,6 @@ public class ResumeTestData {
                 " сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
         resume.setSection(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
         resume.setSection(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
-
-
         resume.setSection(SectionType.EXPERIENCE, initExperience());
         resume.setSection(SectionType.EDUCATION, initEducation());
     }
@@ -137,45 +138,49 @@ public class ResumeTestData {
                                  Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."""));
         experience.add("RIT Center", "",
                 new Position(2012, Month.of(4), 2014, Month.of(10),
-                        "Java архитектор",
-                        """
-                                Организация процесса разработки системы ERP для разных окружений:
-                                релизная политика, версионирование, ведение CI (Jenkins),
-                                миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx),
-                                 AAA via SSO. Архитектура БД и серверной части системы. Разработка интеграционных
-                                 сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения
-                                 (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online
-                                 редактирование из браузера документов MS Office. Maven + plugin development,
-                                Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis,
-                                 Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python"""));
+                        "Java архитектор", """
+                        Организация процесса разработки системы ERP для разных окружений:
+                        релизная политика, версионирование, ведение CI (Jenkins),
+                        миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx),
+                         AAA via SSO. Архитектура БД и серверной части системы. Разработка интеграционных
+                         сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения
+                         (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online
+                         редактирование из браузера документов MS Office. Maven + plugin development,
+                        Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis,
+                         Bonita, Python scripting, Unix shell remote scripting 
+                         via ssh tunnels, PL/Python"""));
         experience.add("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/",
                 new Position(2010, Month.of(12), 2012, Month.of(4),
                         "Ведущий программист",
                         """
-                                Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC,
-                                 SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM.
-                                 Реализация RIA-приложения для администрирования, мониторинга и анализа результатов
-                                 в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT),
-                                 Highstock, Commet, HTML5."""));
+                        Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC,
+                         SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM.
+                         Реализация RIA-приложения для администрирования, мониторинга и анализа результатов
+                         в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT),
+                         Highstock, Commet, HTML5."""));
         experience.add("Yota", "https://www.yota.ru/",
                 new Position(2008, Month.of(6), 2010, Month.of(12),
                         "Ведущий специалист",
-                        """
-                                Дизайн и имплементация Java EE фреймворка для отдела "Платежные Системы"
-                                (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2).
-                                 Реализация администрирования, статистики и мониторинга фреймворка.
-                                Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"""));
+                    """
+                            Дизайн и имплементация Java EE фреймворка 
+                            для отдела "Платежные Системы"
+                            (GlassFish v2.1, v3, OC4J, EJB3, 
+                            JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2).
+                             Реализация администрирования, статистики и мониторинга фреймворка.
+                            Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"""));
         experience.add("Enkata", "https://enkata.com/",
                 new Position(2007, Month.of(3), 2008, Month.of(6),
                         "Разработчик ПО",
                         """
-                                Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS)
+                                Реализация клиентской (Eclipse RCP) и серверной 
+                                (JBoss 4.2, Hibernate 3.0, Tomcat, JMS)
                                 частей кластерного J2EE приложения (OLAP, Data mining)."""));
         experience.add("Siemens AG", "https://www.siemens.com/global/en.html",
                 new Position(2005, Month.of(1), 2007, Month.of(2),
                         "Разработчик ПО",
                         """
-                                Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО
+                                Разработка информационной модели, проектирование 
+                                интерфейсов, реализация и отладка ПО
                                 на мобильной IN платформе Siemens @vantage (Java, Unix)."""));
         experience.add("Alcatel", "https://alcatel.ru/",
                 new Position(1997, Month.of(9), 2005, Month.of(1),
@@ -187,7 +192,6 @@ public class ResumeTestData {
     }
 
     private static OrganizationsSection initEducation() {
-
         OrganizationsSection education = new OrganizationsSection();
         education.add("Coursera", "coursera.org/course/progfun",
                 new Position(2013, Month.of(3), 2013, Month.of(5),
@@ -198,20 +202,14 @@ public class ResumeTestData {
                 new Position(2011, Month.of(3), 2011, Month.of(4),
                         "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'",
                         ""));
-
-
         education.add("Siemens AG", "http://www.siemens.ru/",
                 new Position(2005, Month.of(1), 2005, Month.of(4),
                         "3 месяца обучения мобильным IN сетям (Берлин)",
                         ""));
-
-
         education.add("Alcatel", "https://alcatel.ru/",
                 new Position(1997, Month.of(9), 1998, Month.of(3),
                         "6 месяцев обучения цифровым телефонным сетям (Москва)",
                         ""));
-
-
         List<Position> position = new ArrayList<>();
         position.add(new Position(1993, Month.of(9), 1996, Month.of(7),
                 "Аспирантура (программист С, С++)",
@@ -221,8 +219,6 @@ public class ResumeTestData {
                 ""));
         education.add("Санкт-Петербургский национальный исследовательский университет информационных \n" +
                 " ".repeat(35) + "технологий,механики и оптики", "https://itmo.ru/", position);
-
-
         education.add("Заочная физико-техническая школа при МФТИ", "https://mipt.ru/",
                 new Position(1984, Month.of(9), 1987, Month.of(6),
                         "Закончил с отличием",

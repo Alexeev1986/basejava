@@ -1,15 +1,15 @@
 package com.urise.webapp.util;
 
 public class LazySingleton {
-    private static LazySingleton INSTANCE;
+    private static LazySingleton instance;
 
     private LazySingleton() {
     }
 
     public static LazySingleton getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new LazySingleton();
+        if (instance == null) {
+            instance = new LazySingleton();
         }
-        return INSTANCE;
+        return instance;
     }
 }

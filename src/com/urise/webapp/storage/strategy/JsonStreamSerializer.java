@@ -2,8 +2,13 @@ package com.urise.webapp.storage.strategy;
 
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.util.JsonParser;
-
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
 public class JsonStreamSerializer implements StreamSerializer {

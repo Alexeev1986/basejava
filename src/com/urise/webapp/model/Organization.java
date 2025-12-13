@@ -2,7 +2,6 @@ package com.urise.webapp.model;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
@@ -42,7 +41,6 @@ public class Organization implements Serializable {
         Objects.requireNonNull(name, "name must not be null");
         this.link = new Link(name, url);
         this.positions = Collections.singletonList(position);
-
     }
 
     public List<Position> getPositions() {

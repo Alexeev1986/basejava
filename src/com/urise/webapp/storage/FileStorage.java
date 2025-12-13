@@ -3,8 +3,12 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.strategy.StreamSerializer;
-
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -73,7 +77,8 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAll() {
-        return Arrays.stream(Objects.requireNonNull(getFilesArr())).map(this::doGet).collect(Collectors.toList());
+        return Arrays.stream(Objects.requireNonNull(getFilesArr()))
+                .map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
@@ -91,7 +96,6 @@ public class FileStorage extends AbstractStorage<File> {
             throw new StorageException("Directory read error");
         }
         return directory.listFiles();
-
     }
 }
 

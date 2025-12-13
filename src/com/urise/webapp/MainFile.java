@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public class MainFile {
     public static void main(String[] args) {
-
         File filePath = new File(".\\.gitignore");
         try {
             System.out.println(filePath.getCanonicalPath());

@@ -17,10 +17,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public class DataStreamSerializer implements StreamSerializer {
     @Override
@@ -34,14 +33,9 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void writeContacts(DataOutputStream dos, Map<ContactType, String> contacts) throws IOException {
-        dos.writeInt(contacts.size());
-        contacts.forEach((type, value) -> {
-            try {
-                dos.writeUTF(type.name());
-                dos.writeUTF(value);
-            } catch (IOException e) {
-                throw new StorageException("Write contacts error", e);
-            }
+        writeCollection(dos, contacts.entrySet(), entry -> {
+            dos.writeUTF(entry.getKey().name());
+            dos.writeUTF(entry.getValue());
         });
     }
 
@@ -69,31 +63,20 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void writeListSection(DataOutputStream dos, ListSection section) throws IOException {
-        writeCollection(dos, section.getItems(), (stream, item) -> {
-            try {
-                stream.writeUTF(item);
-            } catch (IOException e) {
-                throw new StorageException("Write list section exception", e);
-            }
-        });
+        writeCollection(dos, section.getItems(), dos::writeUTF);
     }
 
     private void writeOrganizationsSection(DataOutputStream dos,
                                            OrganizationsSection section) throws IOException {
-        writeCollection(dos, section.getOrganizations(), (stream, organization) -> {
-            try {
-                writeOrganization(stream, organization);
-            } catch (IOException e) {
-                throw new StorageException("Write organization section error", e);
-            }
-        });
+        writeCollection(dos, section.getOrganizations(), (organization) ->
+                writeOrganization(dos, organization));
     }
 
     private void writeOrganization(DataOutputStream dos, Organization organization) throws IOException {
         Organization.Link link = organization.getLink();
         dos.writeUTF(link.getName());
         dos.writeUTF(link.getUrl());
-        writeCollection(dos, organization.getPositions(), this::writePositions);
+        writeCollection(dos, organization.getPositions(), (position) -> writePositions(dos, position));
     }
 
     private void writePositions(DataOutputStream dos, Position position) {
@@ -107,11 +90,15 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
-    private <T> void writeCollection(DataOutputStream dos, List<T> items,
-                                     BiConsumer<DataOutputStream, T> biCons) throws IOException {
+    interface Executed<T> {
+        void accept(T t) throws IOException;
+    }
+
+    private <T> void writeCollection(DataOutputStream dos, Collection<T> items,
+                                     Executed<T> executed) throws IOException {
         dos.writeInt(items.size());
         for (T item : items) {
-            biCons.accept(dos, item);
+            executed.accept(item);
         }
     }
 
@@ -155,40 +142,16 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private ListSection readListSection(DataInputStream dis) throws IOException {
-        List<String> items = readCollection(dis, stream -> {
-            try {
-                return stream.readUTF();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        return new ListSection(items);
+        return new ListSection(readCollection(dis, dis::readUTF));
     }
 
     private OrganizationsSection readOrganizationsSection(DataInputStream dis) throws IOException {
-        List<Organization> organizations = readCollection(dis, stream -> {
-            try {
-                return readOrganization(stream);
-            } catch (IOException e) {
-                throw new StorageException("Read organization error", e);
-            }
-        });
-        return new OrganizationsSection(organizations);
+        return new OrganizationsSection(readCollection(dis, () -> readOrganization(dis)));
     }
 
     private Organization readOrganization(DataInputStream dis) throws IOException {
-        String linkName = dis.readUTF();
-        String linkUrl = dis.readUTF();
-        Organization.Link link = new Organization.Link(linkName, linkUrl);
-        List<Position> positions = readCollection(dis, (stream) -> {
-            try {
-                return readPositions(stream);
-            } catch (IOException e) {
-                throw new StorageException("Read position error", e);
-            }
-        });
-
-        return new Organization(link, positions);
+        return new Organization(new Organization.Link(dis.readUTF(),
+                dis.readUTF()), readCollection(dis, () -> readPositions(dis)));
     }
 
     private Position readPositions(DataInputStream dis) throws IOException {
@@ -200,12 +163,16 @@ public class DataStreamSerializer implements StreamSerializer {
         return new Position(startDate, endDate, title, description);
     }
 
+    private interface ReadElement<T> {
+        T readElements() throws IOException;
+    }
+
     private <T> List<T> readCollection(DataInputStream dis,
-                                       Function<DataInputStream, T> function) throws IOException {
+                                       ReadElement<T> readElement) throws IOException {
         int size = dis.readInt();
         List<T> items = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            items.add(function.apply(dis));
+            items.add(readElement.readElements());
         }
         return items;
     }

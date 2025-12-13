@@ -4,9 +4,6 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ListStorage;
 
-/**
- * Test for your com.urise.webapp.storage.ArrayStorage implementation
- */
 public class MainTestListStorage {
     private static final ListStorage LIST_STORAGE = new ListStorage();
 

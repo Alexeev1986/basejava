@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainConcurrency {
-    private static final Object lock = new Object();
+    private static final Object LOCK = new Object();
     public static final int THREADS_NUMBER = 10000;
     private static int counter;
 
@@ -21,8 +21,6 @@ public class MainConcurrency {
 
         new Thread(() -> System.out.println("new Thread(new Runnable() {: " +
                 Thread.currentThread().getName() + ", " + Thread.currentThread().getState())).start();
-
-
         System.out.println("thread0.getState(): " + thread0.getState());
         Thread.sleep(100);
         System.out.println("thread0.getState(): " + thread0.getState());

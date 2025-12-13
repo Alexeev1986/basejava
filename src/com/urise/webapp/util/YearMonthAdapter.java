@@ -1,12 +1,10 @@
 package com.urise.webapp.util;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 public class YearMonthAdapter extends XmlAdapter<String, YearMonth> {
-
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM/yyyy");
 
     @Override

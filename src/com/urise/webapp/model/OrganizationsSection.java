@@ -2,7 +2,6 @@ package com.urise.webapp.model;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ public class OrganizationsSection extends AbstractSection implements Serializabl
     private static final long serialVersionUID = 1L;
 
     private final List<Organization> organizations;
-
 
     public OrganizationsSection() {
         this.organizations = new ArrayList<>();

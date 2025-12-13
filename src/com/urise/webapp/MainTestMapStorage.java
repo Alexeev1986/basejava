@@ -4,9 +4,6 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.MapUuidStorage;
 
-/**
- * Test for your com.urise.webapp.storage.ArrayStorage implementation
- */
 public class MainTestMapStorage {
     private static final MapUuidStorage MAP_STORAGE = new MapUuidStorage();
 

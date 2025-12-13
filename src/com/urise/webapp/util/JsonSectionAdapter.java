@@ -1,7 +1,13 @@
 package com.urise.webapp.util;
 
-import com.google.gson.*;
-
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
 public class JsonSectionAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
@@ -9,7 +15,8 @@ public class JsonSectionAdapter<T> implements JsonSerializer<T>, JsonDeserialize
     private static final String INSTANCE = "INSTANCE";
 
     @Override
-    public T deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public T deserialize(JsonElement json, Type type,
+                         JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
         String className = prim.getAsString();
@@ -21,7 +28,6 @@ public class JsonSectionAdapter<T> implements JsonSerializer<T>, JsonDeserialize
             throw new JsonParseException(e.getMessage());
         }
     }
-
 
     @Override
     public JsonElement serialize(T section, Type type, JsonSerializationContext context) {

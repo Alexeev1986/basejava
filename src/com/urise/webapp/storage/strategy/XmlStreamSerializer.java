@@ -1,16 +1,27 @@
 package com.urise.webapp.storage.strategy;
 
-import com.urise.webapp.model.*;
+import com.urise.webapp.model.ListSection;
+import com.urise.webapp.model.Organization;
+import com.urise.webapp.model.OrganizationsSection;
+import com.urise.webapp.model.Position;
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.TextSection;
 import com.urise.webapp.util.XmlParser;
-
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
 public class XmlStreamSerializer implements StreamSerializer {
     private final XmlParser xmlParser;
 
     public XmlStreamSerializer() {
-        xmlParser = new XmlParser(Resume.class, Organization.class, Organization.Link.class, OrganizationsSection.class,
+        xmlParser = new XmlParser(Resume.class, Organization.class,
+                Organization.Link.class, OrganizationsSection.class,
                 TextSection.class, ListSection.class, Position.class);
     }
 

@@ -1,11 +1,15 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class MainCollections {
-
     private static final String UUID_2 = "uuid2";
     private static final String UUID_4 = "uuid4";
     private static final String UUID_1 = "uuid1";
@@ -14,17 +18,16 @@ public class MainCollections {
     private static final Resume RESUME_2 = new Resume(UUID_2, "Иванов Никита Николаевич");
     private static final Resume RESUME_3 = new Resume(UUID_3, "Полохов Алексей Владимирович");
     private static final Resume RESUME_4 = new Resume(UUID_4, "Петров Данила Васильевич");
-    private static final Collection<Resume> collection = new ArrayList<>();
+    private static final Collection<Resume> COLLECTION = new ArrayList<>();
 
     public static void main(String[] args) {
-
-        collection.add(RESUME_1);
-        collection.add(RESUME_2);
-        collection.add(RESUME_3);
+        COLLECTION.add(RESUME_1);
+        COLLECTION.add(RESUME_2);
+        COLLECTION.add(RESUME_3);
         printList();
 
         System.out.println("Delete UUID_1");
-        collection.removeIf(r -> Objects.equals(r.getUuid(), UUID_1));
+        COLLECTION.removeIf(r -> Objects.equals(r.getUuid(), UUID_1));
         printList();
 
         Map<String, Resume> map = new HashMap<>();
@@ -43,12 +46,11 @@ public class MainCollections {
             System.out.println(entry.getValue());
         }
         List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
-        //resumes.remove(1);
         printAnyList(resumes);
     }
 
     private static void printList() {
-        for (Resume r : collection) {
+        for (Resume r : COLLECTION) {
             System.out.println(r);
         }
     }
