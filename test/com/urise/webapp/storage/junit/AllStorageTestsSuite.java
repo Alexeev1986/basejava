@@ -1,4 +1,4 @@
-package urise.webapp.storage.JUnit5;
+package urise.webapp.storage.junit;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;

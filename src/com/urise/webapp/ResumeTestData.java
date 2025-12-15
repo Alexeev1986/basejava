@@ -7,6 +7,7 @@ import com.urise.webapp.model.Position;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.model.SectionType;
 import com.urise.webapp.model.TextSection;
+
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,21 +154,19 @@ public class ResumeTestData {
                 new Position(2010, Month.of(12), 2012, Month.of(4),
                         "Ведущий программист",
                         """
-                        Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC,
-                         SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM.
-                         Реализация RIA-приложения для администрирования, мониторинга и анализа результатов
-                         в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT),
-                         Highstock, Commet, HTML5."""));
+                                Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC,
+                                 SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM.
+                                 Реализация RIA-приложения для администрирования, мониторинга и анализа результатов
+                                 в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT),
+                                 Highstock, Commet, HTML5."""));
         experience.add("Yota", "https://www.yota.ru/",
                 new Position(2008, Month.of(6), 2010, Month.of(12),
                         "Ведущий специалист",
-                    """
-                            Дизайн и имплементация Java EE фреймворка 
-                            для отдела "Платежные Системы"
-                            (GlassFish v2.1, v3, OC4J, EJB3, 
-                            JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2).
-                             Реализация администрирования, статистики и мониторинга фреймворка.
-                            Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"""));
+                        """
+                                Дизайн и имплементация Java EE фреймворка для отдела "Платежные Системы"
+                                (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2).
+                                 Реализация администрирования, статистики и мониторинга фреймворка.
+                                Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"""));
         experience.add("Enkata", "https://enkata.com/",
                 new Position(2007, Month.of(3), 2008, Month.of(6),
                         "Разработчик ПО",

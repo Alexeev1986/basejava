@@ -1,4 +1,4 @@
-package urise.webapp.storage.JUnit5;
+package urise.webapp.storage.junit;
 
 import com.urise.webapp.storage.MapResumeStorage;
 
