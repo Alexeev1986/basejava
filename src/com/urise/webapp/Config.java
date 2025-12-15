@@ -1,5 +1,6 @@
 package com.urise.webapp;
 
+import com.urise.webapp.storage.SqlStorage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -46,5 +47,9 @@ public class Config {
 
     public String getDbPassword() {
         return dbPassword;
+    }
+
+    public SqlStorage getSqlStorage() {
+        return new SqlStorage(getDbUrl(), getDbUser(), getDbPassword());
     }
 }
