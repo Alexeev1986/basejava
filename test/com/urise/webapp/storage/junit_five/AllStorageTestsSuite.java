@@ -1,10 +1,10 @@
-package urise.webapp.storage.junit;
+package com.urise.webapp.storage.junit_five;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 @Suite
-@SelectClasses({ArrayStorageTest.class,
+@SelectClasses({ArrayStorageTest .class,
         SortedArrayStorageTest.class,
         ListStorageTest.class,
         MapUuidStorageTest.class,

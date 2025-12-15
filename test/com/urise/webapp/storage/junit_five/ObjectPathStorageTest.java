@@ -1,4 +1,4 @@
-package urise.webapp.storage.junit;
+package com.urise.webapp.storage.junit_five;
 
 import com.urise.webapp.storage.PathStorage;
 import com.urise.webapp.storage.strategy.ObjectStreamSerializer;
