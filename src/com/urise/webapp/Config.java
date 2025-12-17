@@ -37,19 +37,7 @@ public class Config {
         return storageDir;
     }
 
-    public String getDbUrl() {
-        return dbUrl;
-    }
-
-    public String getDbUser() {
-        return dbUser;
-    }
-
-    public String getDbPassword() {
-        return dbPassword;
-    }
-
     public SqlStorage getSqlStorage() {
-        return new SqlStorage(getDbUrl(), getDbUser(), getDbPassword());
+        return new SqlStorage(dbUrl, dbUser, dbPassword);
     }
 }

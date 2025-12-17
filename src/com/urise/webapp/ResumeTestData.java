@@ -7,7 +7,6 @@ import com.urise.webapp.model.Position;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.model.SectionType;
 import com.urise.webapp.model.TextSection;
-
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ResumeTestData {
     public static Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
         initialContact(resume);
-        initialSections(resume);
+        //initialSections(resume);
         return resume;
     }
 
