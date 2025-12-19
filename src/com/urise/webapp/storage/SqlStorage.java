@@ -57,9 +57,9 @@ public class SqlStorage implements Storage {
     public void save(Resume r) {
         sqlHelper.transactionalExecute(conn -> {
             try (PreparedStatement ps = conn.prepareStatement("""
-                                                            INSERT INTO resume (uuid, full_name)
-                                                            VALUES (?, ?)
-                                                            """)) {
+                                                                   INSERT INTO resume (uuid, full_name)
+                                                                   VALUES (?, ?)
+                                                                   """)) {
                 ps.setString(1, r.getUuid());
                 ps.setString(2, r.getFullName());
                 ps.execute();
@@ -110,9 +110,9 @@ public class SqlStorage implements Storage {
         return sqlHelper.transactionalExecute(conn -> {
             Map<String, Resume> resumes = new LinkedHashMap<>();
             try (PreparedStatement ps = conn.prepareStatement("""
-                                                                    SELECT uuid, full_name
-                                                                      FROM resume
-                                                                  ORDER BY full_name, uuid
+                                                                   SELECT uuid, full_name
+                                                                     FROM resume
+                                                                 ORDER BY full_name, uuid
                                                                  """)) {
                 ResultSet rs = ps.executeQuery();
 
