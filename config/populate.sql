@@ -2,19 +2,20 @@ DELETE FROM resume;
 
 DELETE FROM contact;
 
+DELETE FROM section;
 
 INSERT INTO resume(uuid, full_name) VALUES
-    ('uuid1', 'Курочкин Евгений Николаевич'),
-    ('uuid2', 'Иванов Никита Николаевич'),
-    ('uuid3' , 'Полохов Алексей Владимирович');
+    ('7de882da-02f2-4d16-8daa-60660aaf4071', 'Name1'),
+    ('a97b3ac3-3817-4c3f-8a5f-178497311f1d', 'Name2'),
+    ('dd0a70d1-5ed3-479a-b452-d5e04f21ca73', 'Name3');
 
 INSERT INTO contact(resume_uuid, type, value) VALUES
-    ('uuid1', 'PHONE', '9098612432'),
-    ('uuid1', 'SKYPE', 'skype'),
-    ('uuid2', 'PHONE', '9098613333'),
-    ('uuid2', 'SKYPE', 'skype2');
+    ('7de882da-02f2-4d16-8daa-60660aaf4071', 'PHONE', '9098612432'),
+    ('7de882da-02f2-4d16-8daa-60660aaf4071', 'SKYPE', 'skype'),
+    ('a97b3ac3-3817-4c3f-8a5f-178497311f1d', 'PHONE', '9098613333'),
+    ('a97b3ac3-3817-4c3f-8a5f-178497311f1d', 'SKYPE', 'skype2'),
+    ('dd0a70d1-5ed3-479a-b452-d5e04f21ca73', 'PHONE', '9098613333'),
+    ('dd0a70d1-5ed3-479a-b452-d5e04f21ca73', 'SKYPE', 'skype2');
 
-SELECT *
-FROM resume r
-         RIGHT JOIN contact c
-              ON r.uuid=c.resume_uuid
+/*INSERT INTO section(resume_uuid, type, content) VALUES
+    ('7de882da-02f2-4d16-8daa-60660aaf4071', )*/

@@ -4,6 +4,7 @@ import com.urise.webapp.Config;
 import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistResumeException;
 import com.urise.webapp.exception.NotExistResumeException;
+import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,11 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
-    protected static final String UUID_1 = "uuid1";
-    protected static final String UUID_2 = "uuid2";
-    protected static final String UUID_3 = "uuid3";
-    protected static final String UUID_4 = "uuid4";
-    protected static final String UUID_5 = "uuid5";
+    protected static final String UUID_1 = UUID.randomUUID().toString();
+    protected static final String UUID_2 = UUID.randomUUID().toString();
+    protected static final String UUID_3 = UUID.randomUUID().toString();
+    protected static final String UUID_4 = UUID.randomUUID().toString();
+    protected static final String UUID_5 = UUID.randomUUID().toString();
     protected static final Resume RESUME_1 = ResumeTestData.createResume(UUID_1, "Курочкин Евгений Николаевич");
     protected static final Resume RESUME_2 = ResumeTestData.createResume(UUID_2, "Иванов Никита Николаевич");
     protected static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, "Полохов Алексей Владимирович");
@@ -56,6 +58,9 @@ public abstract class AbstractStorageTest {
     @Test
     void update() {
         Resume newResume = new Resume(UUID_1, "Самар Павел Вечиславович");
+        newResume.setContact(ContactType.GITHUB, "github_SamarPavel" );
+        newResume.setContact(ContactType.HOMEPAGE, "Samar_live.ru");
+        newResume.setContact(ContactType.MAIL, "samarik@mail.ru");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }
