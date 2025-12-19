@@ -15,7 +15,7 @@ public class ListSection extends AbstractSection implements Serializable {
 
     public ListSection(List<String> items) {
         Objects.requireNonNull(items, "items must not be null");
-        this.items = items;
+        this.items = List.copyOf(items);
     }
 
     public List<String> getItems() {
@@ -24,11 +24,7 @@ public class ListSection extends AbstractSection implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (String str : items) {
-            sb.append(" - ").append(str).append("\n");
-        }
-        return sb.toString();
+        return String.join("\n", items);
     }
 
     @Override

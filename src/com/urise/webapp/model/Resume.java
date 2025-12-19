@@ -75,19 +75,18 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Resume resume = (Resume) object;
-        return Objects.equals(uuid, resume.uuid) &&
-                Objects.equals(fullName, resume.fullName) &&
-                Objects.equals(contacts, resume.contacts) &&
-                Objects.equals(sections, resume.sections);
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Resume resume = (Resume) o;
+        return Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections) &&
+                Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, fullName, contacts, sections);
+        return Objects.hash(contacts, sections, uuid, fullName);
     }
 
     @Override

@@ -17,5 +17,3 @@ INSERT INTO contact(resume_uuid, type, value) VALUES
     ('dd0a70d1-5ed3-479a-b452-d5e04f21ca73', 'PHONE', '9098613333'),
     ('dd0a70d1-5ed3-479a-b452-d5e04f21ca73', 'SKYPE', 'skype2');
 
-/*INSERT INTO section(resume_uuid, type, content) VALUES
-    ('7de882da-02f2-4d16-8daa-60660aaf4071', )*/
