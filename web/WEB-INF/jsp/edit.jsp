@@ -58,35 +58,33 @@
                                     </dd>
                                 </dl>
                                 <br>
-                                <div style="margin-left: 30px">
-                                    <c:forEach var="position" items="${organization.positions}">
-                                        <jsp:useBean id="position" type="com.urise.webapp.model.Position"/>
-                                        <dl>
-                                            <dt>Начальная дата:</dt>
-                                            <dd>
-                                                <input type="text" name="${type}${counter.index}startDate" size=10
-                                                       value="<%=position.getStartDate().toString()%>"
-                                                       placeholder="MM/yyyy">
-                                            </dd>
-                                        </dl>
-                                        <dl>
-                                            <dt>Конечная дата:</dt>
-                                            <dd>
-                                                <input type="text" name="${type}${counter.index}endDate" size=10
-                                                       value="<%=position.getEndDate().toString()%>" placeholder="MM/yyyy">
-                                        </dl>
-                                        <dl>
-                                            <dt>Должность:</dt>
-                                            <dd><input type="text" name='${type}${counter.index}title' size=75
-                                                       value="${position.title}">
-                                        </dl>
-                                        <dl>
-                                            <dt>Описание:</dt>
-                                            <dd><textarea name="${type}${counter.index}description" rows=5
-                                                          cols=75>${position.description}</textarea></dd>
-                                        </dl>
-                                    </c:forEach>
-                                </div>
+                                <c:forEach var="position" items="${organization.positions}">
+                                    <jsp:useBean id="position" type="com.urise.webapp.model.Position"/>
+                                    <dl>
+                                        <dt>Начальная дата:</dt>
+                                        <dd>
+                                            <input type="text" name="${type}${counter.index}startDate" size=10
+                                                   value="<%=position.getStartDate().toString()%>"
+                                                   placeholder="MM/yyyy">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>Конечная дата:</dt>
+                                        <dd>
+                                            <input type="text" name="${type}${counter.index}endDate" size=10
+                                                   value="<%=position.getEndDate().toString()%>" placeholder="MM/yyyy">
+                                    </dl>
+                                    <dl>
+                                        <dt>Должность:</dt>
+                                        <dd><input type="text" name='${type}${counter.index}title' size=75
+                                                   value="${position.title}">
+                                    </dl>
+                                    <dl>
+                                        <dt>Описание:</dt>
+                                        <dd><textarea name="${type}${counter.index}description" rows=5
+                                                      cols=75>${position.description}</textarea></dd>
+                                    </dl>
+                                </c:forEach>
                             </c:forEach>
                         </c:when>
                     </c:choose>
