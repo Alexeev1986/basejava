@@ -12,11 +12,11 @@ import java.util.UUID;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Resume extends AbstractSection implements Comparable<Resume>, Serializable {
+public class Resume extends Section implements Comparable<Resume>, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
     private String uuid;
     private String fullName;
 
@@ -34,7 +34,7 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
         this.fullName = fullName;
     }
 
-    public String getContacts(ContactType type) {
+    public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
@@ -42,7 +42,7 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
         return contacts;
     }
 
-    public void setContact(ContactType type, String value) {
+    public void addContact(ContactType type, String value) {
         if (value == null || value.isBlank()) {
             contacts.remove(type);
         } else {
@@ -50,12 +50,16 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
         }
     }
 
-    public void setSection(SectionType type, AbstractSection section) {
+    public void addSection(SectionType type, Section section) {
         if (section == null) {
             sections.remove(type);
         } else {
             sections.put(type, section);
         }
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getUuid() {
@@ -66,11 +70,11 @@ public class Resume extends AbstractSection implements Comparable<Resume>, Seria
         return fullName;
     }
 
-    public AbstractSection getSections(SectionType type) {
+    public Section getSections(SectionType type) {
         return sections.get(type);
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
+    public Map<SectionType, Section> getSections() {
         return sections;
     }
 

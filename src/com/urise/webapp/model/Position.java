@@ -56,6 +56,10 @@ public class Position implements Serializable {
         return endDate;
     }
 
+    public String getFullDate() {
+        return startDate.toString() + " / " + endDate.toString();
+    }
+
     public String getTitle() {
         return title;
     }

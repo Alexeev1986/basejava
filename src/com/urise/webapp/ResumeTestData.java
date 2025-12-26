@@ -1,11 +1,11 @@
 package com.urise.webapp;
 
-import com.urise.webapp.model.AbstractSection;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.ListSection;
 import com.urise.webapp.model.OrganizationsSection;
 import com.urise.webapp.model.Position;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.Section;
 import com.urise.webapp.model.SectionType;
 import com.urise.webapp.model.TextSection;
 import java.time.Month;
@@ -31,30 +31,30 @@ public class ResumeTestData {
     }
 
     private static void initialContact(Resume resume) {
-        resume.setContact(ContactType.PHONE, "+7(921) 855-0482");
-        resume.setContact(ContactType.SKYPE, "grigory.kislin");
-        resume.setContact(ContactType.MAIL, "gkislin@yandex.ru");
-        resume.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        resume.setContact(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        resume.setContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        resume.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        resume.addContact(ContactType.SKYPE, "grigory.kislin");
+        resume.addContact(ContactType.MAIL, "gkislin@yandex.ru");
+        resume.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        resume.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+        resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        resume.addContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
     }
 
     private static void printContact(Resume resume) {
         for (ContactType value : ContactType.values()) {
-            System.out.println(value.getTitle() + ": " + resume.getContacts(value));
+            System.out.println(value.getTitle() + ": " + resume.getContact(value));
         }
     }
 
     private static void initialSections(Resume resume) {
-        resume.setSection(SectionType.OBJECTIVE, new TextSection(
+        resume.addSection(SectionType.OBJECTIVE, new TextSection(
                 "Ведущий стажировок по Java Web и Enterprise технологиям"));
-        resume.setSection(SectionType.PERSONAL, new TextSection(
+        resume.addSection(SectionType.PERSONAL, new TextSection(
                 "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода."));
-        resume.setSection(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
-        resume.setSection(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
-        //resume.setSection(SectionType.EXPERIENCE, initExperience());
-        //resume.setSection(SectionType.EDUCATION, initEducation());
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
+        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
+        resume.addSection(SectionType.EXPERIENCE, initExperience());
+        resume.addSection(SectionType.EDUCATION, initEducation());
     }
 
     private static List<String> initAchievement() {
@@ -152,15 +152,12 @@ public class ResumeTestData {
         itmoPositions.add(new Position(1987, Month.SEPTEMBER, 1993, Month.JULY,
                 "Инженер (программист Fortran, C)", ""));
         education.add("Санкт-Петербургский университет ИТМО", "https://itmo.ru/", itmoPositions);
-        education.add("Заочная физико-техническая школа при МФТИ", "https://mipt.ru/",
-                new Position(1984, Month.SEPTEMBER, 1987, Month.JUNE,
-                        "Закончил с отличием", ""));
         return education;
     }
 
     private static void printSection(Resume resume) {
         for (SectionType value : SectionType.values()) {
-            AbstractSection section = resume.getSections(value);
+            Section section = resume.getSections(value);
             if (section != null) {
                 System.out.println("\n" + value.getTitle() + ":\n" + section);
             }

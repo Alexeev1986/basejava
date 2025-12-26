@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class OrganizationsSection extends AbstractSection implements Serializable {
+public class OrganizationsSection extends Section implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

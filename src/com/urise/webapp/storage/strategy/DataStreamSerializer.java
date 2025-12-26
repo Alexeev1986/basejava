@@ -1,13 +1,13 @@
 package com.urise.webapp.storage.strategy;
 
 import com.urise.webapp.exception.StorageException;
-import com.urise.webapp.model.AbstractSection;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.ListSection;
 import com.urise.webapp.model.Organization;
 import com.urise.webapp.model.OrganizationsSection;
 import com.urise.webapp.model.Position;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.Section;
 import com.urise.webapp.model.SectionType;
 import com.urise.webapp.model.TextSection;
 import java.io.DataInputStream;
@@ -40,7 +40,7 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void writeSections(DataOutputStream dos,
-                               Map<SectionType, AbstractSection> sections) throws IOException {
+                               Map<SectionType, Section> sections) throws IOException {
         dos.writeInt(sections.size());
         sections.forEach((type, section) -> {
             try {
@@ -53,7 +53,7 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void writeSectionContent(DataOutputStream dos,
-                                     SectionType type, AbstractSection section) throws IOException {
+                                     SectionType type, Section section) throws IOException {
         switch (type) {
             case PERSONAL, OBJECTIVE -> dos.writeUTF(((TextSection) section).getContent());
             case ACHIEVEMENT, QUALIFICATIONS -> writeListSection(dos, (ListSection) section);
@@ -119,7 +119,7 @@ public class DataStreamSerializer implements StreamSerializer {
         for (int i = 0; i < size; i++) {
             ContactType contactType = ContactType.valueOf(dis.readUTF());
             String value = dis.readUTF();
-            resume.setContact(contactType, value);
+            resume.addContact(contactType, value);
         }
     }
 
@@ -127,13 +127,13 @@ public class DataStreamSerializer implements StreamSerializer {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
             SectionType sectionType = SectionType.valueOf(dis.readUTF());
-            AbstractSection section = readSectionContent(dis, sectionType);
-            resume.setSection(sectionType, section);
+            Section section = readSectionContent(dis, sectionType);
+            resume.addSection(sectionType, section);
         }
     }
 
-    private AbstractSection readSectionContent(DataInputStream dis,
-                                               SectionType sectionType) throws IOException {
+    private Section readSectionContent(DataInputStream dis,
+                                       SectionType sectionType) throws IOException {
         return switch (sectionType) {
             case PERSONAL, OBJECTIVE -> new TextSection(dis.readUTF());
             case ACHIEVEMENT, QUALIFICATIONS -> readListSection(dis);
