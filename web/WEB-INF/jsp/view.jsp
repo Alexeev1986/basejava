@@ -1,6 +1,7 @@
 <%@ page import="com.urise.webapp.model.TextSection" %>
 <%@ page import="com.urise.webapp.model.ListSection" %>
 <%@ page import="com.urise.webapp.model.OrganizationsSection" %>
+<%@ page import="com.urise.webapp.util.HTMLUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -51,15 +52,11 @@
                     <jsp:useBean id="organization" type="com.urise.webapp.model.Organization"/>
                     <c:choose>
                         <c:when test="${empty organization.link.url}">
-                            <h4>
-                                <%=organization.getLink().getName()%>
-                            </h4>
+                            <h3>${organization.link.name}
+                            </h3>
                         </c:when>
                         <c:otherwise>
-                            <h4>
-                                ${organization.link.name}&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="${organization.link.url}"><%=organization.getLink().getUrl()%></a>
-                            </h4>
+                            <h3><a href="${organization.link.url}"><%=organization.getLink().getName()%></a></h3>
                         </c:otherwise>
                     </c:choose>
                     <div style="max-width: 800px; margin: 0;">
@@ -68,7 +65,7 @@
                         <jsp:useBean id="position" type="com.urise.webapp.model.Position"/>
                         <tr>
                             <td style="padding: 8px; font-size: 14px; color: #b3b3b3; text-align: left; vertical-align: top;">
-                                    ${position.fullDate}
+                                    <%=HTMLUtil.formatDates(position)%>
                             </td>
                             <td style="padding: 8px; font-size: 16px; font-weight: bold; color: #ffffff; text-align: left; vertical-align: top;">
                                     ${position.title}

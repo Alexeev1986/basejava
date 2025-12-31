@@ -119,7 +119,7 @@ public class DataStreamSerializer implements StreamSerializer {
         for (int i = 0; i < size; i++) {
             ContactType contactType = ContactType.valueOf(dis.readUTF());
             String value = dis.readUTF();
-            resume.addContact(contactType, value);
+            resume.setContact(contactType, value);
         }
     }
 
@@ -128,7 +128,7 @@ public class DataStreamSerializer implements StreamSerializer {
         for (int i = 0; i < size; i++) {
             SectionType sectionType = SectionType.valueOf(dis.readUTF());
             Section section = readSectionContent(dis, sectionType);
-            resume.addSection(sectionType, section);
+            resume.setSection(sectionType, section);
         }
     }
 

@@ -10,6 +10,7 @@ public class ListSection extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<String> items;
 
+    public static final ListSection EMPTY = new ListSection(List.of(""));
     public ListSection() {
     }
 

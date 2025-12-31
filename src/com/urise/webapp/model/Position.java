@@ -18,6 +18,8 @@ public class Position implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    public static final Position EMPTY = new Position();
+
     @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     private LocalDate startDate;
 

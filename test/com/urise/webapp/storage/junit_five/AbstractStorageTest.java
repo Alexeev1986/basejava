@@ -36,18 +36,17 @@ public abstract class AbstractStorageTest {
         assertEquals(3, storage.size());
     }
 
-   /* @Test
+    /*@Test
     void clear() {
         storage.clear();
         assertEquals(0, storage.size());
     }*/
-
     @Test
     void update() {
         Resume newResume = new Resume(UUID_1, "Самар Павел Вечиславович");
-        newResume.addContact(ContactType.GITHUB, "github_SamarPavel" );
-        newResume.addContact(ContactType.HOMEPAGE, "Samar_live.ru");
-        newResume.addContact(ContactType.MAIL, "samarik@mail.ru");
+        newResume.setContact(ContactType.GITHUB, "github_SamarPavel" );
+        newResume.setContact(ContactType.HOMEPAGE, "Samar_live.ru");
+        newResume.setContact(ContactType.MAIL, "samarik@mail.ru");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }

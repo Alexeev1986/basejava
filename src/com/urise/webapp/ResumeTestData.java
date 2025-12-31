@@ -31,13 +31,13 @@ public class ResumeTestData {
     }
 
     private static void initialContact(Resume resume) {
-        resume.addContact(ContactType.PHONE, "+7(921) 855-0482");
-        resume.addContact(ContactType.SKYPE, "grigory.kislin");
-        resume.addContact(ContactType.MAIL, "gkislin@yandex.ru");
-        resume.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        resume.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        resume.addContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        resume.setContact(ContactType.PHONE, "+7(921) 855-0482");
+        resume.setContact(ContactType.SKYPE, "grigory.kislin");
+        resume.setContact(ContactType.MAIL, "gkislin@yandex.ru");
+        resume.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        resume.setContact(ContactType.GITHUB, "https://github.com/gkislin");
+        resume.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        resume.setContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
     }
 
     private static void printContact(Resume resume) {
@@ -47,14 +47,14 @@ public class ResumeTestData {
     }
 
     private static void initialSections(Resume resume) {
-        resume.addSection(SectionType.OBJECTIVE, new TextSection(
+        resume.setSection(SectionType.OBJECTIVE, new TextSection(
                 "Ведущий стажировок по Java Web и Enterprise технологиям"));
-        resume.addSection(SectionType.PERSONAL, new TextSection(
+        resume.setSection(SectionType.PERSONAL, new TextSection(
                 "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода."));
-        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
-        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
-        resume.addSection(SectionType.EXPERIENCE, initExperience());
-        resume.addSection(SectionType.EDUCATION, initEducation());
+        resume.setSection(SectionType.ACHIEVEMENT, new ListSection(initAchievement()));
+        resume.setSection(SectionType.QUALIFICATIONS, new ListSection(initQualifications()));
+        resume.setSection(SectionType.EXPERIENCE, initExperience());
+        resume.setSection(SectionType.EDUCATION, initEducation());
     }
 
     private static List<String> initAchievement() {

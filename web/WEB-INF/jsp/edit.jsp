@@ -22,7 +22,7 @@
         <dt>Имя:</dt>
         <dd><input type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
     </dl>
-    <h3>Контакты:</h3>
+        <dt style="font-size: 1.2em; color: blue;">Контакты:</dt>
         <c:forEach var="type" items="<%=ContactType.values()%>">
             <dl>
                 <dt>${type.title}</dt>
@@ -35,7 +35,7 @@
             <c:set var="section" value="${resume.getSections(type)}"/>
             <jsp:useBean id="section" type="com.urise.webapp.model.Section"/>
             <dl>
-                <dt>${type.title}</dt>
+                <dt style="font-size: 1.2em; color: blue;">${type.title}</dt>
                 <c:choose>
                     <c:when test="${type=='PERSONAL' || type =='OBJECTIVE'}">
                         <dd><label>
@@ -72,7 +72,7 @@
                                     <dd>
                                         <label>
                                             <input type="text" name="${type}${counter.index}startDate" size=10
-                                                   value="<%=position.getStartDate().toString()%>"
+                                                   value="<%=DateUtil.format(position.getStartDate())%>"
                                                    placeholder="MM/yyyy">
                                         </label>
                                     </dd>
@@ -82,7 +82,7 @@
                                     <dd>
                                         <label>
                                             <input type="text" name="${type}${counter.index}endDate" size=10
-                                                   value="<%=position.getEndDate().toString()%>" placeholder="MM/yyyy">
+                                                   value="<%=DateUtil.format(position.getEndDate())%>" placeholder="MM/yyyy">
                                         </label>
                                 </dl>
                                 <dl>

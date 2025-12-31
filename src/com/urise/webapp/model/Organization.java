@@ -13,7 +13,10 @@ public class Organization implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    public static final Organization EMPTY = new Organization("", "", Position.EMPTY);
+
     private Link link;
+
     private List<Position> positions;
 
     public Organization() {
